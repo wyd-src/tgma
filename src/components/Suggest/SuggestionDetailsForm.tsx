@@ -76,14 +76,14 @@ export default function SuggestionDetailsForm({
         <textarea
           tw="bg-bg-color border-secondary-bg-color min-h-[160px] border-[1.5px] w-full rounded-[6px] px-4 py-2.5 text-text-color transition-all duration-75 resize-none focus:(border-accent-text-color outline-none)"
           placeholder=" "
-          value={suggestionItem?.description ? suggestionItem.description : ''}
+          value={suggestionItem?.description ? suggestionItem.description.slice(0, 160) : ''}
           onChange={(e) => setSuggestionItem({ ...suggestionItem, description: e.target.value })}
         />
         <label tw="text-sm text-subtitle-text-color pointer-events-none absolute left-[16px] top-[12px] transition-all duration-200 ease-in [transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)] opacity-[0.5] bg-bg-color">
           Description
         </label>
         <span tw="absolute right-[14px] bottom-[14px] text-subtitle-text-color text-xs">
-          {suggestionItem?.description?.length ?? 0} / 160
+          {suggestionItem?.description?.slice(0, 160)?.length ?? 0} / 160
         </span>
       </div>
       <button
