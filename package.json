@@ -1,0 +1,54 @@
+{
+  "name": "wyd",
+  "private": true,
+  "babelMacros": {
+    "twin": {
+      "preset": "emotion"
+    }
+  },
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/babel-plugin": "^11.7.2",
+    "@emotion/babel-plugin-jsx-pragmatic": "^0.2.1",
+    "@emotion/css": "^11.7.1",
+    "@emotion/react": "^11.9.3",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.9.3",
+    "@twa-dev/sdk": "^7.0.0",
+    "mobx": "^6.11.0",
+    "mobx-react-lite": "^4.0.5",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
+    "axios": "^1.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.3",
+    "sass": "^1.70.0",
+    "twin.macro": "^3.4.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vite": "^4.4.5",
+    "vite-plugin-babel-macros": "1.0.6"
+  }
+}

@@ -1,0 +1,17 @@
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  opacity: 1;
+  transform: scale(0.75) translateY(-70%) translateX(-14px);
+  top: 0;
+  left: 6px;
+  padding: 0 5px;
+}
+
+textarea:focus + label,
+textarea:not(:placeholder-shown) + label {
+  opacity: 1;
+  transform: scale(0.75) translateY(-70%) translateX(-14px);
+  top: 0;
+  left: 6px;
+  padding: 0 5px;
+}
