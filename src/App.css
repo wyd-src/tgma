@@ -4,8 +4,8 @@
 
 :root {
   --bg-color: var(--tg-theme-bg-color, #18222d);
-  --button-color: var(--tg-theme-button-color, #2ea6ff);
-  --button-color-5: var(--tg-theme-button-color-5, #2ea6ff10);
+  --button-color: var(--tg-theme-button-color, #2481cc);
+  --button-color-5: var(--tg-theme-button-color-5, #2481cc10);
   --hint-color: var(--tg-theme-hint-color, #b1c3d5);
   --secondary-bg-color: var(--tg-theme-secondary-bg-color, #131415);
   --header-bg-color: var(--tg-theme-header-bg-color, #131415);

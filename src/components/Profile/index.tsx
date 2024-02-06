@@ -1,64 +1,36 @@
-import React from 'react'
+import React, { SetStateAction, useEffect } from 'react'
 import tw from 'twin.macro'
-import { ProfileIcon, StarIcon } from '~/assets/icons'
-import { Activity } from '../Home/HomeActivity'
 import HomeActivityItem from '../Home/HomeActivityItem'
 import { useCallback, useState } from 'react'
 import SuggestionDetails from '../Suggest/SuggestionDetails'
+import { IActivity, IActivityResult } from '~/types/activity'
+import { getMyActivities } from '~/services/api/profile'
+import { observer } from 'mobx-react-lite'
+import { useStore } from '~/stores'
+import { INITIAL_ACTIVITY_RESULT } from '~/utils/constants'
+import ProfileDetails from './ProfileDetails'
 
-const ProfileDetails = () => {
-  return (
-    <div tw="flex gap-3">
-      <span tw="w-[44px] h-[44px] bg-secondary-bg-color rounded-full flex items-center justify-center">
-        <ProfileIcon tw="fill-button-text-color" />
-      </span>
-      <div tw="flex flex-col gap-1">
-        <span tw="text-sm text-text-color">Ehsan Nouri</span>
-        <span tw="flex items-center text-xs text-subtitle-text-color">
-          <StarIcon tw="fill-rate" />
-          &nbsp;5.0
-        </span>
-      </div>
-    </div>
-  )
-}
-export default function Profile() {
-  const [edit, setEdit] = useState<Activity>({})
-  const activities: Activity[] = [
-    {
-      key: 'food',
-      title: 'Zula Burgur',
-      description:
-        'A cozy dining haven offering a fusion of local and international cuisines, where each dish tells a story of flavor and tradition, crafted with the freshest ingredients and a touch of home-cooked warmth',
-      category: 'Restaurant',
-      rate: 4.5,
-      suggested: 'Angelina',
-      location: 'test',
-    },
-    {
-      key: 'shop',
-      title: 'Metropol AVM',
-      description:
-        'A captivating escape into the world of film, where cutting-edge technology meets',
-      category: 'Shopping',
-      rate: 4.2,
-      suggested: 'Akbar',
-      location: 'test',
-    },
-    {
-      key: 'cinema',
-      title: 'Akasya Cinemaximum',
-      description:
-        'A captivating escape into the world of film, where cutting-edge technology meets compelling storytelling in a comfortable, immersive viewing environment.',
-      category: 'Cinema',
-      rate: 5.0,
-      suggested: 'Ehsan',
-      location: 'test',
-    },
-  ]
+const Profile = observer(function Profile() {
+  const { user } = useStore()
+  const [activities, setActivities] = useState<IActivityResult>(INITIAL_ACTIVITY_RESULT)
+  const [edit, setEdit] = useState<IActivity>({})
+
+  const fetchMyActivites = useCallback(async () => {
+    await getMyActivities({ tgData: user.queryId }).then(
+      (res: { data: SetStateAction<IActivityResult> }) => {
+        if (res) {
+          setActivities(res.data)
+        }
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    fetchMyActivites()
+  }, [])
 
   const onEdit = useCallback(
-    (activity: Activity) => {
+    (activity: IActivity) => {
       setEdit(activity)
     },
     [edit]
@@ -74,10 +46,10 @@ export default function Profile() {
           <span tw="text-sm font-semibold text-section-header-text-color mb-2.5">
             My Suggestions
           </span>
-          {activities.map((activity, index) => (
-            <div key={activity.key} tw="flex flex-col">
-              <HomeActivityItem activity={activity} from="profile" onEdit={onEdit} />
-              {index !== activities.length - 1 && (
+          {activities.items.map((item, index) => (
+            <div key={item.id} tw="flex flex-col">
+              <HomeActivityItem activity={item} from="profile" onEdit={onEdit} />
+              {index !== activities.items.length - 1 && (
                 <span tw="bg-secondary-bg-color h-[1px] my-5 w-full"></span>
               )}
             </div>
@@ -86,4 +58,6 @@ export default function Profile() {
       )}
     </div>
   )
-}
+})
+
+export default Profile

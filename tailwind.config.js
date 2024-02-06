@@ -7,8 +7,8 @@ export default {
     extend: {
       colors: {
         'bg-color': 'var(--bg-color, #18222d)',
-        'button-color': 'var(--button-color, #2ea6ff)',
-        'button-color-5': 'var(--button-color-5, #2ea6ff10)',
+        'button-color': 'var(--button-color, #2481CC)',
+        'button-color-5': 'var(--button-color-5, #2481CC10)',
         'hint-color': 'var(--hint-color, #b1c3d5)',
         'secondary-bg-color': 'var(--secondary-bg-color, #131415)',
         'header-bg-color': 'var(--header-bg-color, #131415)',

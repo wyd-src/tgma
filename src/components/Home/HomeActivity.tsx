@@ -1,51 +1,27 @@
-import React from 'react'
+import React, { SetStateAction, useCallback, useEffect, useState } from 'react'
 import { RefreshIcon } from '~/assets/icons/'
 import tw from 'twin.macro'
 import HomeActivityItem from './HomeActivityItem'
+import { getFeed } from '~/services/api/activities'
+import { useStore } from '~/stores'
+import { observer } from 'mobx-react-lite'
+import { IActivity } from '~/types/activity'
 
-export interface Activity {
-  key: string
-  title: string
-  description: string
-  category: string
-  rate: number
-  suggested: string
-  location: string
-}
+const HomeActivity = observer(function HomeActivity() {
+  const [activities, setActivities] = useState<IActivity[]>([])
+  const { user } = useStore()
 
-const HomeActivity: React.FC = () => {
-  const activities: Activity[] = [
-    {
-      key: 'food',
-      title: 'Zula Burgur',
-      description:
-        'A cozy dining haven offering a fusion of local and international cuisines, where each dish tells a story of flavor and tradition, crafted with the freshest ingredients and a touch of home-cooked warmth',
-      category: 'Restaurant',
-      rate: 4.5,
-      suggested: 'Angelina',
-      location: 'test',
-    },
-    {
-      key: 'shop',
-      title: 'Metropol AVM',
-      description:
-        'A captivating escape into the world of film, where cutting-edge technology meets',
-      category: 'Shopping',
-      rate: 4.2,
-      suggested: 'Akbar',
-      location: 'test',
-    },
-    {
-      key: 'cinema',
-      title: 'Akasya Cinemaximum',
-      description:
-        'A captivating escape into the world of film, where cutting-edge technology meets compelling storytelling in a comfortable, immersive viewing environment.',
-      category: 'Cinema',
-      rate: 5.0,
-      suggested: 'Ehsan',
-      location: 'test',
-    },
-  ]
+  const fetchActivites = useCallback(async () => {
+    await getFeed({ tgData: user.queryId }).then((res: { data: SetStateAction<IActivity[]> }) => {
+      if (res) {
+        setActivities(res.data)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    fetchActivites()
+  }, [])
 
   return (
     <div tw="flex flex-col py-5 px-4">
@@ -53,9 +29,9 @@ const HomeActivity: React.FC = () => {
         <span tw="text-section-header-text-color font-semibold">Today’s Activity Suggestion</span>
         <RefreshIcon tw="relative left-1" />
       </div>
-      {activities.map((activity, index) => (
-        <div key={activity.key} tw="flex flex-col">
-          <HomeActivityItem activity={activity} />
+      {activities?.map((item, index) => (
+        <div key={item.id} tw="flex flex-col">
+          <HomeActivityItem activity={item} />
           {index !== activities.length - 1 && (
             <span tw="bg-secondary-bg-color h-[1px] my-5 w-full"></span>
           )}
@@ -63,6 +39,6 @@ const HomeActivity: React.FC = () => {
       ))}
     </div>
   )
-}
+})
 
 export default HomeActivity
