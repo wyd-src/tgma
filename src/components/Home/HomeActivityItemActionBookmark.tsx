@@ -8,11 +8,15 @@ import { IActivity } from '~/types/activity'
 import WebApp from '@twa-dev/sdk'
 
 const ActionBookmark = observer(function ActionBookmark({ activity }: { activity: IActivity }) {
-  const { user } = useStore()
+  const { user, general } = useStore()
   const [bookmark, setBookmark] = useState<boolean>(activity.bookmark)
 
   const onButtonClick = async (buttonId: string) => {
     if (buttonId === 'cancel') return
+    bookmarkAction()
+  }
+
+  const bookmarkAction = useCallback(async () => {
     const action = bookmark ? 'unbookmark' : 'bookmark'
     await updateBookmark({ tgData: user.queryId, activityId: activity.id, action }).then(
       (res: { data: SetStateAction<IActivity> }) => {
@@ -21,19 +25,18 @@ const ActionBookmark = observer(function ActionBookmark({ activity }: { activity
         }
       }
     )
-  }
+  }, [bookmark])
 
   const handleBookmark = useCallback(() => {
-    const action = bookmark ? 'unbookmark' : 'bookmark'
     WebApp.showPopup(
       {
         title: 'Bookmark',
-        message: `Do you want to ${action} this activity?`,
+        message: 'Are you sure you want to remove this from Saved?',
         buttons: [
           {
-            id: 'Confirm',
-            type: bookmark ? 'destructive' : 'default',
-            text: 'Confirm',
+            id: 'delete',
+            type: 'destructive',
+            text: 'Delete',
           },
           {
             id: 'cancel',
@@ -44,13 +47,14 @@ const ActionBookmark = observer(function ActionBookmark({ activity }: { activity
       onButtonClick
     )
   }, [bookmark])
+
   return (
     <button
       tw="rounded-[10px] w-[40px] h-[40px] flex items-center justify-center"
       css={[bookmark ? tw`bg-button-color` : tw`bg-link-color-5`]}
-      onClick={handleBookmark}
+      onClick={general.currentPage === 'home' ? bookmarkAction : handleBookmark}
     >
-      <BookmarkIcon css={[bookmark ? tw`stroke-text-color` : tw`stroke-link-color`]} />
+      <BookmarkIcon css={[bookmark ? tw`fill-text-color` : tw`stroke-link-color`]} />
     </button>
   )
 })

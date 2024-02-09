@@ -35,13 +35,13 @@ const ActionDelete = observer(function ActionDelete({
   const handleDelete = useCallback(() => {
     WebApp.showPopup(
       {
-        title: 'Bookmark',
-        message: `Do you want to Remove this activity?`,
+        title: 'Delete Activity',
+        message: 'Are you sure you want to delete this activity?',
         buttons: [
           {
-            id: 'Confirm',
+            id: 'delete',
             type: 'destructive',
-            text: 'Confirm',
+            text: 'Delete',
           },
           {
             id: 'cancel',

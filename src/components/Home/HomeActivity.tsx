@@ -7,6 +7,7 @@ import { useStore } from '~/stores'
 import { observer } from 'mobx-react-lite'
 import { IActivity } from '~/types/activity'
 import NoResult from '../Base/NoResult'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 const HomeActivity = observer(function HomeActivity() {
   const [activities, setActivities] = useState<IActivity[]>([])
