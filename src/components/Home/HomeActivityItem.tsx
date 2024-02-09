@@ -46,22 +46,39 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
         <button tw="flex items-center h-max justify-center gap-2 text-link-color">
           Details
           <span>
-            <ArrowIcon tw="stroke-link-color stroke-[1.5]" />
+            <ArrowIcon
+              tw="stroke-link-color stroke-[1.5]"
+              css={[
+                showDetails
+                  ? css`
+                      transform: rotate(180deg);
+                      transition: transform 0.3s ease-in-out;
+                    `
+                  : css`
+                      transform: rotate(0deg);
+                      transition: transform 0.3s ease-in-out;
+                    `,
+              ]}
+            />
           </span>
         </button>
       </div>
       {activity.description.length && !showDetails && (
-        <p tw="text-text-color transition-all duration-75 ease-in-out">
+        <p tw="text-text-color">
           {activity.description.slice(0, 100)}
           {activity.description.length > 100 && '...'}
         </p>
       )}
       {showDetails && (
-        <>
-          <p
-            tw="text-text-color transition-all duration-75 ease-in-out"
-            onClick={() => setShowDetails(!showDetails)}
-          >
+        <div
+          css={[
+            css`
+              transition: all 0.3s ease-in-out;
+              max-height: 1000px;
+            `,
+          ]}
+        >
+          <p tw="text-text-color" onClick={() => setShowDetails(!showDetails)}>
             {activity.description}
           </p>
           <span tw="text-subtitle-text-color text-xs">Suggested by {activity.suggested}</span>
@@ -72,7 +89,7 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
             onEdit={onEdit}
             setActivities={setActivities}
           />
-        </>
+        </div>
       )}
     </div>
   )

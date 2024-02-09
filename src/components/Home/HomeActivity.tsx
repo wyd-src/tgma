@@ -12,11 +12,14 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 const HomeActivity = observer(function HomeActivity() {
   const [activities, setActivities] = useState<IActivity[]>([])
   const { user } = useStore()
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const fetchActivites = useCallback(async () => {
+  const fetchActivites = useCallback(async (onClick = false) => {
+    setLoading(onClick)
     await getFeed({ tgData: user.queryId }).then((res: { data: SetStateAction<IActivity[]> }) => {
       if (res) {
         setActivities(res.data)
+        setLoading(false)
       }
     })
   }, [])
@@ -29,8 +32,11 @@ const HomeActivity = observer(function HomeActivity() {
     <div tw="flex flex-col py-5 px-4">
       <div tw="flex justify-between w-full text-sm mb-3">
         <span tw="text-section-header-text-color font-semibold">Today’s Activity Suggestion</span>
-        <span onClick={fetchActivites}>
-          <RefreshIcon tw="relative left-1" />
+        <span onClick={() => fetchActivites(true)}>
+          <RefreshIcon
+            tw="relative left-1"
+            css={[loading && tw`animate-spin duration-1000 ease-in-out`]}
+          />
         </span>
       </div>
       {activities?.map((item, index) => (
