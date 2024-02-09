@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from '~/stores'
 import { INITIAL_ACTIVITY_RESULT } from '~/utils/constants'
 import ProfileDetails from './ProfileDetails'
+import NoResult from '../Base/NoResult'
 
 const Profile = observer(function Profile() {
   const { user } = useStore()
@@ -35,10 +36,16 @@ const Profile = observer(function Profile() {
     },
     [edit]
   )
+
+  const onEditFinish = useCallback(() => {
+    setEdit({})
+    fetchMyActivites()
+  }, [edit])
+
   return (
     <div tw="flex flex-col p-4">
       {Object.keys(edit).length > 0 ? (
-        <SuggestionDetails suggestion={edit} />
+        <SuggestionDetails suggestion={edit} onEditFinish={onEditFinish} />
       ) : (
         <>
           <ProfileDetails />
@@ -48,12 +55,19 @@ const Profile = observer(function Profile() {
           </span>
           {activities.items.map((item, index) => (
             <div key={item.id} tw="flex flex-col">
-              <HomeActivityItem activity={item} from="profile" onEdit={onEdit} />
+              <HomeActivityItem
+                activity={item}
+                activities={activities}
+                from="profile"
+                onEdit={onEdit}
+                setActivities={setActivities}
+              />
               {index !== activities.items.length - 1 && (
                 <span tw="bg-secondary-bg-color h-[1px] my-5 w-full"></span>
               )}
             </div>
           ))}
+          {!activities.total && <NoResult text="There are no suggestions available" />}
         </>
       )}
     </div>

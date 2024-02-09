@@ -1,11 +1,11 @@
-import ActivityStore from './ActivityStore'
+import GeneralStore from './GeneralStore'
 import UserStore from './UserStore'
 
 export default class RootStore {
   user: UserStore
-  activity: ActivityStore
+  general: GeneralStore
   constructor() {
     this.user = new UserStore(this)
-    this.activity = new ActivityStore(this)
+    this.general = new GeneralStore(this)
   }
 }

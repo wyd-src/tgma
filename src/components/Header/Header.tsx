@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { HomeIcon, BookmarkIcon, AddIcon, ProfileIcon } from '~/assets/icons'
 import tw, { css } from 'twin.macro'
+import { useStore } from '~/stores'
+import { TPage } from '~/stores/GeneralStore'
+import { observer } from 'mobx-react-lite'
 
-const Header: React.FC = ({ setActivePage }) => {
-  const [isActive, setIsActive] = useState<string>('home')
+const Header = observer(function Header() {
+  const { general } = useStore()
   const items = [
     {
       title: 'Home',
@@ -26,11 +29,11 @@ const Header: React.FC = ({ setActivePage }) => {
       key: 'profile',
       Icon: <ProfileIcon />,
     },
-  ]
-
-  useEffect(() => {
-    setActivePage(isActive)
-  }, [isActive, setActivePage])
+  ] as {
+    title: string
+    key: TPage
+    Icon: JSX.Element
+  }[]
 
   return (
     <div tw="flex flex-col">
@@ -39,8 +42,8 @@ const Header: React.FC = ({ setActivePage }) => {
           <div
             key={x.key}
             tw="flex flex-col items-center justify-center gap-1 rounded-[1px] w-[70px] pb-5 border-b-2 border-transparent"
-            css={[isActive === x.key && tw`border-b-2 border-button-color`]}
-            onClick={() => setIsActive(x.key)}
+            css={[general.currentPage === x.key && tw`border-b-2 border-button-color`]}
+            onClick={() => general.setPage(x.key)}
           >
             <span tw="flex justify-center items-center rounded-full bg-button-color text-sm w-[34px] h-[34px]">
               {x.Icon}
@@ -52,6 +55,6 @@ const Header: React.FC = ({ setActivePage }) => {
       <span tw="bg-secondary-bg-color h-0.5"></span>
     </div>
   )
-}
+})
 
 export default Header

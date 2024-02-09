@@ -10,9 +10,8 @@ import { useStore } from './stores'
 import { observer } from 'mobx-react-lite'
 
 const App = observer(function App() {
-  const { user } = useStore()
+  const { user, general } = useStore()
   user.setQueryId(WebApp.initData)
-  const [activePage, setActivePage] = useState<string>('home')
   const componentMapping = {
     home: <Home />,
     suggest: <Suggest />,
@@ -21,8 +20,8 @@ const App = observer(function App() {
   }
   return (
     <>
-      <Header setActivePage={setActivePage} />
-      {user.queryId && componentMapping[activePage]}
+      <Header />
+      {user.queryId && componentMapping[general.currentPage]}
     </>
   )
 })

@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
 import { ArrowIcon, CinemaIcon, RestaurantIcon, ShopIcon, StarIcon } from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
-import { IActivity } from '~/types/activity'
+import { IActivityCardProps } from '~/types/activity'
 import ItemAction from './HomeActivityItemAction'
 
-export interface IActivityCardProps {
-  activity: IActivity
-  from?: string
-  onEdit?: (activity: IActivity) => void
-}
-
-const HomeActivityItem: React.FC<IActivityCardProps> = ({ activity, from = '', onEdit }) => {
+const HomeActivityItem: React.FC<IActivityCardProps> = ({
+  activity,
+  activities,
+  from = '',
+  onEdit,
+  setActivities,
+}) => {
   const [showDetails, setShowDetails] = useState<boolean>(false)
   const activityIcon = {
     Restaurant: <RestaurantIcon tw="text-button-text-color" />,
-    shop: <ShopIcon tw="text-button-text-color" />,
+    Shopping: <ShopIcon tw="text-button-text-color" />,
     cinema: <CinemaIcon tw="text-button-text-color" />,
   }
   const iconBgColor = {
     Restaurant: tw`bg-restaurant`,
-    shop: tw`bg-shopping`,
+    Shopping: tw`bg-shopping`,
     cinema: tw`bg-cinema`,
   }
   return (
@@ -50,6 +50,12 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({ activity, from = '', o
           </span>
         </button>
       </div>
+      {activity.description.length && !showDetails && (
+        <p tw="text-text-color transition-all duration-75 ease-in-out">
+          {activity.description.slice(0, 100)}
+          {activity.description.length > 100 && '...'}
+        </p>
+      )}
       {showDetails && (
         <>
           <p
@@ -59,7 +65,13 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({ activity, from = '', o
             {activity.description}
           </p>
           <span tw="text-subtitle-text-color text-xs">Suggested by {activity.suggested}</span>
-          <ItemAction activity={activity} from={from} onEdit={onEdit} />
+          <ItemAction
+            activity={activity}
+            activities={activities}
+            from={from}
+            onEdit={onEdit}
+            setActivities={setActivities}
+          />
         </>
       )}
     </div>

@@ -1,11 +1,30 @@
-import React, { useState } from 'react'
+import React, { SetStateAction, useCallback, useState } from 'react'
 import { CheckIcon, StarIcon } from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
+import { IActivity } from '~/types/activity'
+import { useStore } from '~/stores'
+import { observer } from 'mobx-react-lite'
+import { updateVote } from '~/services/api/profile'
 
-const ActionRate: React.FC = () => {
+const ActionRate = observer(function ActionRate({ activityId }: { activityId: string }) {
+  const { user } = useStore()
   const [showRating, setShowRating] = useState<boolean>(false)
   const [rate, setRate] = useState<number>(-1)
   const rates = [false, false, false, false, false]
+
+  const handleRate = useCallback(
+    async (rate: number) => {
+      await updateVote({ tgData: user.queryId, activityId, rate }).then(
+        (res: { data: SetStateAction<IActivity> }) => {
+          if (res) {
+            setRate(rate)
+            setShowRating(false)
+          }
+        }
+      )
+    },
+    [rate]
+  )
   return (
     <div tw="flex gap-2.5">
       {showRating ? (
@@ -14,7 +33,7 @@ const ActionRate: React.FC = () => {
             <span
               key={index}
               onClick={() => {
-                setRate(index + 1), setShowRating(false)
+                handleRate(index + 1)
               }}
             >
               <StarIcon
@@ -35,6 +54,6 @@ const ActionRate: React.FC = () => {
       )}
     </div>
   )
-}
+})
 
 export default ActionRate

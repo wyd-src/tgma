@@ -1,21 +1,59 @@
+import WebApp from '@twa-dev/sdk'
 import { SetStateAction, useCallback } from 'react'
 import tw, { css } from 'twin.macro'
 import { MapIcon } from '~/assets/icons'
 import Arrow from '~/assets/icons/Arrow'
-import { createActivities } from '~/services/api/activities'
+import { IActivityParams, createUpdateActivity } from '~/services/api/activities'
 import { useStore } from '~/stores'
 import { IActivity } from '~/types/activity'
 
-export default function SuggestionDetailsLocation({ suggestionItem = {}, setNextPage }) {
-  const { user } = useStore()
-  const createActivity = useCallback(async () => {
-    await createActivities({ tgData: user.queryId, params: suggestionItem }).then(
+export default function SuggestionDetailsLocation({
+  suggestionItem = {},
+  setNextPage,
+  isEdit,
+  onEditFinish,
+}: {
+  suggestionItem: IActivityParams
+  setNextPage: (page: string) => void
+  isEdit: boolean
+  onEditFinish?: () => void
+}) {
+  const { user, general } = useStore()
+  const onButtonClick = async (buttonId: string) => {
+    if (buttonId === 'cancel') return
+    const method = isEdit ? 'update' : 'create'
+    await createUpdateActivity({ tgData: user.queryId, params: suggestionItem, method }).then(
       (res: { data: SetStateAction<IActivity> }) => {
         if (res) {
+          general.setPage('profile')
+          onEditFinish()
         }
       }
     )
+  }
+
+  const handleActivity = useCallback(() => {
+    const method = isEdit ? 'update' : 'create'
+    WebApp.showPopup(
+      {
+        title: `${method.slice(0, 1).toUpperCase()}${method.slice(1)} Activity`,
+        message: `Do you want to ${method} this activity?`,
+        buttons: [
+          {
+            id: 'Confirm',
+            type: 'default',
+            text: 'Confirm',
+          },
+          {
+            id: 'cancel',
+            type: 'cancel',
+          },
+        ],
+      },
+      onButtonClick
+    )
   }, [])
+
   return (
     <div tw="flex flex-col gap-3 text-section-header-text-color text-sm">
       <span tw="font-semibold">Location</span>
@@ -30,7 +68,7 @@ export default function SuggestionDetailsLocation({ suggestionItem = {}, setNext
         </button>
         <button
           tw="text-link-color bg-link-color-5 gap-1 px-4 h-[40px] text-sm flex items-center justify-center rounded-[10px] self-end font-medium"
-          onClick={createActivity}
+          onClick={handleActivity}
         >
           Save Activity Without Location&nbsp; <Arrow tw="stroke-link-color -rotate-90" />
         </button>

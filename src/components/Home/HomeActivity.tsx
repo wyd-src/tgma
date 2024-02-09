@@ -6,6 +6,7 @@ import { getFeed } from '~/services/api/activities'
 import { useStore } from '~/stores'
 import { observer } from 'mobx-react-lite'
 import { IActivity } from '~/types/activity'
+import NoResult from '../Base/NoResult'
 
 const HomeActivity = observer(function HomeActivity() {
   const [activities, setActivities] = useState<IActivity[]>([])
@@ -27,7 +28,9 @@ const HomeActivity = observer(function HomeActivity() {
     <div tw="flex flex-col py-5 px-4">
       <div tw="flex justify-between w-full text-sm mb-3">
         <span tw="text-section-header-text-color font-semibold">Today’s Activity Suggestion</span>
-        <RefreshIcon tw="relative left-1" />
+        <span onClick={fetchActivites}>
+          <RefreshIcon tw="relative left-1" />
+        </span>
       </div>
       {activities?.map((item, index) => (
         <div key={item.id} tw="flex flex-col">
@@ -37,6 +40,7 @@ const HomeActivity = observer(function HomeActivity() {
           )}
         </div>
       ))}
+      {!activities.length && <NoResult text="There are no suggestions available" />}
     </div>
   )
 })

@@ -3,9 +3,10 @@ import HomeActivityItem from '../Home/HomeActivityItem'
 import { SetStateAction, useCallback, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '~/stores'
-import { IActivityResult } from '../Home/HomeActivity'
 import { getBookmarks } from '~/services/api/profile'
 import { INITIAL_ACTIVITY_RESULT } from '~/utils/constants'
+import NoResult from '../Base/NoResult'
+import { IActivityResult } from '~/types/activity'
 const Bookmark = observer(function Bookmark() {
   const [bookmarks, setBookmarks] = useState<IActivityResult>(INITIAL_ACTIVITY_RESULT)
 
@@ -13,7 +14,7 @@ const Bookmark = observer(function Bookmark() {
 
   const fetchBookmarks = useCallback(async () => {
     await getBookmarks({ tgData: user.queryId }).then(
-      (res: { data: SetStateAction<IActivityResult[]> }) => {
+      (res: { data: SetStateAction<IActivityResult> }) => {
         if (res) {
           setBookmarks(res.data)
         }
@@ -35,6 +36,7 @@ const Bookmark = observer(function Bookmark() {
           )}
         </div>
       ))}
+      {!bookmarks.total && <NoResult text="There are no bookmarks saved" />}
     </div>
   )
 })

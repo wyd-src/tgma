@@ -3,6 +3,7 @@
 import { baseAxios } from '../initialize'
 
 export interface IActivityParams {
+  id?: string
   title: string
   category: string
   description: string
@@ -32,25 +33,27 @@ const getFeed = async ({ tgData }: { tgData: string }) => {
   return { data, error, loading }
 }
 
-const createActivities = async ({
+const createUpdateActivity = async ({
   tgData,
   params,
+  method,
 }: {
   tgData: string
   params: IActivityParams
+  method: 'create' | 'update'
 }) => {
   let error = null
   let loading = true
   let data = null
   let controller = new AbortController()
-  const url = '/activities/'
+  const url = '/activities/' + (method === 'create' ? '' : params.id + '/')
   try {
     const response = await baseAxios.request({
       signal: controller.signal,
       headers: {
         'tg-data': tgData,
       },
-      method: 'POST',
+      method: method === 'create' ? 'POST' : 'PUT',
       url,
       data: params,
     })
@@ -63,4 +66,4 @@ const createActivities = async ({
   return { data, error, loading }
 }
 
-export { getFeed, createActivities }
+export { getFeed, createUpdateActivity }

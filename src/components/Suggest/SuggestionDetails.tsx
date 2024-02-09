@@ -10,9 +10,16 @@ interface ISuggestion {
   description: string
 }
 
-export default function SuggestionDetails({ suggestion = {} }: { suggestion?: ISuggestion }) {
+export default function SuggestionDetails({
+  suggestion = {},
+  onEditFinish,
+}: {
+  suggestion?: ISuggestion
+  onEditFinish?: () => void
+}) {
   const [suggestionItem, setSuggestionItem] = useState<ISuggestion>(suggestion)
   const [nextPage, setNextPage] = useState<string>('form')
+  const isEdit = Object.keys(suggestion).length > 0
   return (
     <div tw="flex flex-col ">
       {nextPage === 'form' && (
@@ -23,7 +30,12 @@ export default function SuggestionDetails({ suggestion = {} }: { suggestion?: IS
         />
       )}
       {nextPage === 'location' && (
-        <SuggestionDetailsLocation suggestionItem={suggestionItem} setNextPage={setNextPage} />
+        <SuggestionDetailsLocation
+          suggestionItem={suggestionItem}
+          setNextPage={setNextPage}
+          isEdit={isEdit}
+          onEditFinish={onEditFinish}
+        />
       )}
     </div>
   )
