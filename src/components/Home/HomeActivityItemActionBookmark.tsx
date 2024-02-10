@@ -9,7 +9,7 @@ import WebApp from '@twa-dev/sdk'
 
 const ActionBookmark = observer(function ActionBookmark({ activity }: { activity: IActivity }) {
   const { user, general } = useStore()
-  const [bookmark, setBookmark] = useState<boolean>(activity.bookmark)
+  const [bookmark, setBookmark] = useState<boolean>(activity.is_bookmarked)
 
   const onButtonClick = async (buttonId: string) => {
     if (buttonId === 'cancel') return

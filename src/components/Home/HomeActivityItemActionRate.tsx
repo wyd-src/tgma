@@ -35,7 +35,7 @@ const ActionRate = observer(function ActionRate({ activityId }: { activityId: st
           css={[rate > 1 ? tw`bg-button-color` : tw`bg-link-color-5`]}
           onClick={() => setShowRating(true)}
         >
-          <CheckIcon css={[rate > 1 ? tw`stroke-text-color` : tw`stroke-link-color`]} />
+          <CheckIcon css={[rate > 1 ? tw`stroke-button-text-color` : tw`stroke-link-color`]} />
         </button>
       )}
 

@@ -32,7 +32,6 @@ export default function SuggestionDetails({
       {nextPage === 'location' && (
         <SuggestionDetailsLocation
           suggestionItem={suggestionItem}
-          setNextPage={setNextPage}
           isEdit={isEdit}
           onEditFinish={onEditFinish}
         />

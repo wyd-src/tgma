@@ -46,9 +46,9 @@ const ProfileDetails = observer(function ProfileDetails() {
               <ProfileIcon tw="fill-button-text-color" />
             )}
           </span>
-          <div tw="flex flex-col gap-1">
+          <div tw="flex flex-col gap-1 ">
             <span tw="text-sm text-text-color">{fullName}</span>
-            <span tw="flex items-center text-xs text-subtitle-text-color">
+            <span tw="flex items-center text-xs text-subtitle-text-color relative right-[3px]">
               <StarIcon tw="fill-rate" />
               &nbsp;5.0
             </span>

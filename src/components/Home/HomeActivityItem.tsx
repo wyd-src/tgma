@@ -24,6 +24,8 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
     Shopping: tw`bg-shopping`,
     cinema: tw`bg-cinema`,
   }
+  const suggestedName = activity?.user?.first_name ?? activity?.user?.last_name
+  const avgRate = (activity?.sum_of_votes / activity?.number_of_votes).toFixed(1)
   return (
     <div tw="flex flex-col gap-2 text-sm">
       <div tw="flex w-full justify-between" onClick={() => setShowDetails(!showDetails)}>
@@ -35,11 +37,13 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
             {activityIcon[activity.category]}
           </span>
           <div tw="flex flex-col">
-            <div tw="flex text-sm gap-2">
-              <span tw="text-text-color font-semibold w-max text-ellipsis">{activity.title}</span>
-              <span tw="flex text-subtitle-text-color h-max items-center relative bottom-[1px]">
+            <div tw="flex  gap-2">
+              <span tw="text-sm text-text-color font-semibold w-max text-ellipsis">
+                {activity.title}
+              </span>
+              <span tw="flex text-subtitle-text-color h-max items-center relative bottom-[1px] text-xs">
                 <StarIcon tw="fill-rate" />
-                &nbsp;{activity.rate}
+                &nbsp;{parseFloat(avgRate) ? avgRate : 'n/a'}
               </span>
             </div>
             <span tw="text-subtitle-text-color">{activity.category}</span>
@@ -87,7 +91,7 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
         unmountOnExit={true}
       >
         <div ref={nodeRef}>
-          <span tw="text-subtitle-text-color text-xs">Suggested by {activity.suggested}</span>
+          <span tw="text-subtitle-text-color text-xs">Suggested by {suggestedName}</span>
           <ItemAction
             activity={activity}
             activities={activities}

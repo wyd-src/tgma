@@ -27,7 +27,7 @@ const App = observer(function App() {
         <CSSTransition
           key={general.currentPage}
           timeout={600}
-          classNames="pageSliderTop"
+          classNames="pageSliderLeft"
           mountOnEnter={true}
           unmountOnExit={true}
         >

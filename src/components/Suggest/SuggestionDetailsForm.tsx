@@ -48,10 +48,10 @@ export default function SuggestionDetailsForm({
   suggestionItem,
   setSuggestionItem,
   setNextPage,
-  suggestion = {},
 }: {
-  sugegstion: ISuggestion
   suggestionItem: ISuggestion
+  setSuggestionItem: (suggestionItem: ISuggestion) => void
+  setNextPage: (nextPage: string) => void
 }) {
   return (
     <div tw="flex flex-col gap-3">

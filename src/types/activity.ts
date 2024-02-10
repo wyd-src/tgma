@@ -4,15 +4,22 @@ export interface IActivityResult {
   limit: number
   offset: number
 }
+export interface IUser {
+  id: number
+  first_name: string
+  last_name: string
+}
 export interface IActivity {
-  id: string
+  id: number
   title: string
   description: string
-  bookmark: boolean
   category: string
+  number_of_votes: number
+  sum_of_votes: number
+  number_of_bookmarks: number
+  is_bookmarked: boolean
   rate: number
-  suggested: string
-  location: string
+  user: IUser
 }
 
 export interface IActivityCardProps {

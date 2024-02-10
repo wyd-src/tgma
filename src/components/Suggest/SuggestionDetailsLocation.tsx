@@ -9,12 +9,10 @@ import { IActivity } from '~/types/activity'
 
 export default function SuggestionDetailsLocation({
   suggestionItem = {},
-  setNextPage,
   isEdit,
   onEditFinish,
 }: {
   suggestionItem: IActivityParams
-  setNextPage: (page: string) => void
   isEdit: boolean
   onEditFinish?: () => void
 }) {

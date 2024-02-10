@@ -19,7 +19,7 @@ const Header = observer(function Header() {
       Icon: <AddIcon />,
     },
     {
-      title: 'Bookmarks',
+      title: 'Saved',
       key: 'bookmarks',
       Icon: <BookmarkIcon tw="fill-button-text-color" />,
     },

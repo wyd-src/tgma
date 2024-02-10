@@ -76,7 +76,7 @@ const updateActivity = async ({ tgData, activityId }: { tgData: string; activity
   return { data, error, loading }
 }
 
-const deleteActivity = async ({ tgData, activityId }: { tgData: string; activityId: string }) => {
+const deleteActivity = async ({ tgData, activityId }: { tgData: string; activityId: number }) => {
   let error = null
   let loading = true
   let data = null
@@ -130,7 +130,7 @@ const updateBookmark = async ({
   action,
 }: {
   tgData: string
-  activityId: string
+  activityId: number
   action: TBookmarkAction
 }) => {
   let error = null

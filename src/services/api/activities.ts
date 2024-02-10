@@ -9,12 +9,13 @@ export interface IActivityParams {
   description: string
 }
 
-const getFeed = async ({ tgData }: { tgData: string }) => {
+const getFeed = async ({ tgData, onRefresh }: { tgData: string; onRefresh: boolean }) => {
   let error = null
   let loading = true
   let data = null
   let controller = new AbortController()
   const url = '/feed/'
+  const params = onRefresh ? { refresh: true } : {}
   try {
     const response = await baseAxios.request({
       signal: controller.signal,
@@ -23,6 +24,7 @@ const getFeed = async ({ tgData }: { tgData: string }) => {
       },
       method: 'GET',
       url,
+      params,
     })
     data = response.data
   } catch (error: any) {
