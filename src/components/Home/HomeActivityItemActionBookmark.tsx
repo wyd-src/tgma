@@ -54,7 +54,7 @@ const ActionBookmark = observer(function ActionBookmark({ activity }: { activity
       css={[bookmark ? tw`bg-button-color` : tw`bg-link-color-5`]}
       onClick={general.currentPage === 'home' ? bookmarkAction : handleBookmark}
     >
-      <BookmarkIcon css={[bookmark ? tw`fill-text-color` : tw`stroke-link-color`]} />
+      <BookmarkIcon css={[bookmark ? tw`fill-button-text-color` : tw`stroke-link-color`]} />
     </button>
   )
 })
