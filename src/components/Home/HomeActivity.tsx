@@ -10,8 +10,9 @@ import NoResult from '../Base/NoResult'
 import ActivitySkeleton from '../Base/Skeleton/ActivitySkeleton'
 
 const HomeActivity = observer(function HomeActivity() {
-  const [activities, setActivities] = useState<IActivity[]>([])
   const { user } = useStore()
+  const [activities, setActivities] = useState<IActivity[]>([])
+  const [isExpanded, setIsExpanded] = useState<number>(0)
   const [refreshLoading, setRefreshLoading] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -22,6 +23,7 @@ const HomeActivity = observer(function HomeActivity() {
       .then((res: { data: SetStateAction<IActivity[]> }) => {
         if (res) {
           setActivities(res.data)
+          setIsExpanded(res.data[0]?.id || 0)
           setRefreshLoading(false)
           setLoading(false)
         }
@@ -56,7 +58,11 @@ const HomeActivity = observer(function HomeActivity() {
         <>
           {activities?.map((item, index) => (
             <div key={item.id} tw="flex flex-col">
-              <HomeActivityItem activity={item} />
+              <HomeActivityItem
+                activity={item}
+                isExpanded={isExpanded}
+                setIsExpanded={setIsExpanded}
+              />
               {index !== activities.length - 1 && (
                 <span tw="bg-secondary-bg-color h-[1px] my-5 w-full"></span>
               )}

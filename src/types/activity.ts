@@ -25,7 +25,9 @@ export interface IActivity {
 export interface IActivityCardProps {
   activity: IActivity
   activities?: IActivityResult
+  isExpanded?: number
   from?: string
   onEdit?: (activity: IActivity) => void
   setActivities?: (activity: IActivityResult) => void
+  setIsExpanded?: (number: number) => void
 }

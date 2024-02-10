@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ArrowIcon, CinemaIcon, RestaurantIcon, ShopIcon, StarIcon } from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
 import { IActivityCardProps } from '~/types/activity'
@@ -8,11 +8,13 @@ import { CSSTransition } from 'react-transition-group'
 const HomeActivityItem: React.FC<IActivityCardProps> = ({
   activity,
   activities,
+  isExpanded,
   from = '',
   onEdit,
   setActivities,
+  setIsExpanded,
 }) => {
-  const [showDetails, setShowDetails] = useState<boolean>(false)
+  const [showDetails, setShowDetails] = useState<boolean>(isExpanded === activity.id)
   const nodeRef = useRef(null)
   const activityIcon = {
     Restaurant: <RestaurantIcon tw="text-button-text-color" />,
@@ -24,11 +26,20 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
     Shopping: tw`bg-shopping`,
     cinema: tw`bg-cinema`,
   }
+  useEffect(() => {
+    setShowDetails(isExpanded === activity.id)
+  }, [isExpanded])
+
   const suggestedName = activity?.user?.first_name ?? activity?.user?.last_name
   const avgRate = (activity?.sum_of_votes / activity?.number_of_votes).toFixed(1)
   return (
     <div tw="flex flex-col gap-2 text-sm">
-      <div tw="flex w-full justify-between" onClick={() => setShowDetails(!showDetails)}>
+      <div
+        tw="flex w-full justify-between"
+        onClick={() => {
+          setShowDetails(!showDetails), setIsExpanded(activity.id)
+        }}
+      >
         <div tw="flex gap-3">
           <span
             tw="rounded-full w-[44px] h-[44px] flex items-center justify-center"

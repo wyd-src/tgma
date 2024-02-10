@@ -32,7 +32,7 @@ const FeedAction = ({ activity, from }: { activity: IActivity; from: string }) =
   return (
     <div tw="flex gap-2.5">
       <ActionBookmark activity={activity} />
-      {from !== 'bookmark' && <ActionRate activityId={activity.id} />}
+      {from !== 'bookmark' && <ActionRate activityId={activity.id} vote={activity.rate} />}
     </div>
   )
 }

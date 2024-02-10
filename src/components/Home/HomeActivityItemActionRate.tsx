@@ -7,10 +7,16 @@ import { observer } from 'mobx-react-lite'
 import { updateVote } from '~/services/api/profile'
 import { CSSTransition } from 'react-transition-group'
 
-const ActionRate = observer(function ActionRate({ activityId }: { activityId: string }) {
+const ActionRate = observer(function ActionRate({
+  activityId,
+  vote,
+}: {
+  activityId: number
+  vote: number
+}) {
   const { user } = useStore()
   const [showRating, setShowRating] = useState<boolean>(false)
-  const [rate, setRate] = useState<number>(-1)
+  const [rate, setRate] = useState<number>(vote)
   const rates = [false, false, false, false, false]
   const nodeRef = useRef(null)
 
