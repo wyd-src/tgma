@@ -162,7 +162,7 @@ const updateVote = async ({
   rate,
 }: {
   tgData: string
-  activityId: string
+  activityId: number
   rate: number
 }) => {
   let error = null
