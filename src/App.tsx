@@ -8,7 +8,7 @@ import Bookmark from './components/‌Bookmark'
 import WebApp from '@twa-dev/sdk'
 import { useStore } from './stores'
 import { observer } from 'mobx-react-lite'
-import { css } from 'twin.macro'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const App = observer(function App() {
   const { user, general } = useStore()
@@ -19,10 +19,21 @@ const App = observer(function App() {
     bookmarks: <Bookmark />,
     profile: <Profile />,
   }
+
   return (
     <>
       <Header />
-      {user.queryId && componentMapping[general.currentPage]}
+      <TransitionGroup>
+        <CSSTransition
+          key={general.currentPage}
+          timeout={600}
+          classNames="pageSliderTop"
+          mountOnEnter={true}
+          unmountOnExit={true}
+        >
+          {user.queryId && componentMapping[general.currentPage]}
+        </CSSTransition>
+      </TransitionGroup>
     </>
   )
 })

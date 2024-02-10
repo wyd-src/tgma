@@ -10,20 +10,26 @@ import { useStore } from '~/stores'
 import { INITIAL_ACTIVITY_RESULT } from '~/utils/constants'
 import ProfileDetails from './ProfileDetails'
 import NoResult from '../Base/NoResult'
+import ActivitySkeleton from '../Base/Skeleton/ActivitySkeleton'
 
 const Profile = observer(function Profile() {
   const { user } = useStore()
   const [activities, setActivities] = useState<IActivityResult>(INITIAL_ACTIVITY_RESULT)
   const [edit, setEdit] = useState<IActivity>({})
+  const [loading, setLoading] = useState<boolean>(true)
 
   const fetchMyActivites = useCallback(async () => {
-    await getMyActivities({ tgData: user.queryId }).then(
-      (res: { data: SetStateAction<IActivityResult> }) => {
+    setLoading(true)
+    await getMyActivities({ tgData: user.queryId })
+      .then((res: { data: SetStateAction<IActivityResult> }) => {
         if (res) {
           setActivities(res.data)
+          setLoading(false)
         }
-      }
-    )
+      })
+      .catch((error: any) => {
+        setLoading(false)
+      })
   }, [])
 
   useEffect(() => {
@@ -53,21 +59,27 @@ const Profile = observer(function Profile() {
           <span tw="text-sm font-semibold text-section-header-text-color mb-2.5">
             My Suggestions
           </span>
-          {activities.items.map((item, index) => (
-            <div key={item.id} tw="flex flex-col">
-              <HomeActivityItem
-                activity={item}
-                activities={activities}
-                from="profile"
-                onEdit={onEdit}
-                setActivities={setActivities}
-              />
-              {index !== activities.items.length - 1 && (
-                <span tw="bg-secondary-bg-color h-[1px] my-5 w-full"></span>
-              )}
-            </div>
-          ))}
-          {!activities.total && <NoResult text="There are no suggestions available" />}
+          {loading ? (
+            <ActivitySkeleton count={2} />
+          ) : (
+            <>
+              {activities.items.map((item, index) => (
+                <div key={item.id} tw="flex flex-col">
+                  <HomeActivityItem
+                    activity={item}
+                    activities={activities}
+                    from="profile"
+                    onEdit={onEdit}
+                    setActivities={setActivities}
+                  />
+                  {index !== activities.items.length - 1 && (
+                    <span tw="bg-secondary-bg-color h-[1px] my-5 w-full"></span>
+                  )}
+                </div>
+              ))}
+              {!activities.total && <NoResult text="There are no suggestions available" />}
+            </>
+          )}
         </>
       )}
     </div>

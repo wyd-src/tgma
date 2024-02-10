@@ -50,7 +50,7 @@ const ActionBookmark = observer(function ActionBookmark({ activity }: { activity
 
   return (
     <button
-      tw="rounded-[10px] w-[40px] h-[40px] flex items-center justify-center"
+      tw="rounded-[10px] w-[40px] h-[40px] flex items-center justify-center transition-all"
       css={[bookmark ? tw`bg-button-color` : tw`bg-link-color-5`]}
       onClick={general.currentPage === 'home' ? bookmarkAction : handleBookmark}
     >

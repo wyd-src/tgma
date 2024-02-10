@@ -2,7 +2,6 @@
 /* eslint-disable no-self-assign */
 import { baseAxios } from '../initialize'
 
-
 export type TBookmarkAction = 'bookmark' | 'unbookmark'
 
 const getProfile = async ({ tgData }: { tgData: string }) => {
@@ -164,7 +163,7 @@ const updateVote = async ({
 }: {
   tgData: string
   activityId: string
-  vote: number
+  rate: number
 }) => {
   let error = null
   let loading = true

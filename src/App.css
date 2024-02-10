@@ -30,3 +30,91 @@ body {
   font-family: Roboto;
   margin: 0;
 }
+
+.fade-enter {
+  @apply opacity-0;
+}
+
+.fade-enter-active {
+  @apply opacity-100 transition-opacity duration-300;
+}
+
+.fade-exit {
+  @apply opacity-100;
+}
+
+.fade-exit-active {
+  @apply opacity-0 transition-opacity duration-300;
+}
+
+.vertical-enter {
+  @apply max-h-0 overflow-hidden;
+}
+
+.vertical-enter-active {
+  @apply max-h-[300px] overflow-hidden transition-all duration-500 ease-in-out;
+}
+
+.vertical-exit {
+  @apply max-h-0 hidden overflow-hidden;
+}
+
+.vertical-exit-active {
+  @apply max-h-0 hidden overflow-hidden transition-all duration-500 ease-in-out;
+}
+
+.horizental-enter {
+  @apply max-w-0 overflow-hidden;
+}
+
+.horizental-enter-active {
+  @apply max-w-[300px] overflow-hidden transition-all duration-500 ease-in-out;
+}
+
+.horizental-exit {
+  @apply max-w-0 w-0 overflow-hidden;
+}
+
+.horizental-exit-active {
+  @apply max-w-0 w-0 overflow-hidden transition-none duration-0 ease-in-out;
+}
+
+.pageSliderTop-enter {
+  transform: translate3d(0, 100%, 0);
+  overflow: hidden;
+}
+.pageSliderTop-enter.pageSliderTop-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition: all 600ms;
+  overflow: hidden;
+}
+.pageSliderTop-exit {
+  transform: translate3d(0, 0, 0);
+  overflow: hidden;
+  display: none;
+}
+.pageSliderTop-exit.pageSliderTop-exit-active {
+  transform: translate3d(0, 0, 0);
+  transition: all 0;
+  overflow: hidden;
+  display: none;
+}
+
+.pageSliderLeft-enter {
+  transform: translate3d(100%, 0, 0);
+  overflow: hidden;
+}
+.pageSliderLeft-enter.pageSliderLeft-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition: all 600ms;
+  overflow: hidden;
+}
+.pageSliderLeft-exit {
+  transform: translate3d(0, 0, 0);
+  overflow: hidden;
+}
+.pageSliderLeft-exit.pageSliderLeft-exit-active {
+  transform: translate3d(100%, 0, 0);
+  transition: all 600ms;
+  overflow: hidden;
+}

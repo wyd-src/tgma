@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { ArrowIcon, CinemaIcon, RestaurantIcon, ShopIcon, StarIcon } from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
 import { IActivityCardProps } from '~/types/activity'
 import ItemAction from './HomeActivityItemAction'
+import { CSSTransition } from 'react-transition-group'
 
 const HomeActivityItem: React.FC<IActivityCardProps> = ({
   activity,
@@ -12,6 +13,7 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
   setActivities,
 }) => {
   const [showDetails, setShowDetails] = useState<boolean>(false)
+  const nodeRef = useRef(null)
   const activityIcon = {
     Restaurant: <RestaurantIcon tw="text-button-text-color" />,
     Shopping: <ShopIcon tw="text-button-text-color" />,
@@ -69,18 +71,22 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
           {activity.description.length > 100 && '...'}
         </p>
       )}
+
       {showDetails && (
-        <div
-          css={[
-            css`
-              transition: all 0.3s ease-in-out;
-              max-height: 1000px;
-            `,
-          ]}
-        >
-          <p tw="text-text-color" onClick={() => setShowDetails(!showDetails)}>
-            {activity.description}
-          </p>
+        <p tw="text-text-color" onClick={() => setShowDetails(!showDetails)}>
+          {activity.description}
+        </p>
+      )}
+
+      <CSSTransition
+        in={showDetails}
+        nodeRef={nodeRef}
+        timeout={500}
+        classNames="vertical"
+        mountOnEnter={true}
+        unmountOnExit={true}
+      >
+        <div ref={nodeRef}>
           <span tw="text-subtitle-text-color text-xs">Suggested by {activity.suggested}</span>
           <ItemAction
             activity={activity}
@@ -90,7 +96,7 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
             setActivities={setActivities}
           />
         </div>
-      )}
+      </CSSTransition>
     </div>
   )
 }
