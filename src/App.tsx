@@ -14,14 +14,13 @@ import { deserializeParams } from './utils/utils'
 const App = observer(function App() {
   const { user, general } = useStore()
   user.setQueryId(WebApp.initData)
+  general.setLanguage(deserializeParams(WebApp.initData).user.language_code)
   const componentMapping = {
     home: <Home />,
     suggest: <Suggest />,
     bookmarks: <Bookmark />,
     profile: <Profile />,
   }
-
-  general.setLanguage(deserializeParams(WebApp.initData).user.language_code)
 
   return (
     <>

@@ -17,7 +17,7 @@ const HomeNews = observer(function HomeNews() {
     {
       title: lang.news_text[language],
       link: '',
-      Icon: <ChannelIcon />,
+      Icon: <ChannelIcon tw="ml-[5px]" />,
     },
   ]
 
