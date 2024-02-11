@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { EditIcon, MapIcon } from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
 import ActionBookmark from './HomeActivityItemActionBookmark'
 import ActionRate from './HomeActivityItemActionRate'
 import { IActivity, IActivityCardProps } from '~/types/activity'
 import ActionDelete from './HomeActivityItemActionDelete'
+import { observer } from 'mobx-react-lite'
+import { useStore } from '~/stores'
+import lang from '~/lang/lang.json'
 
 const OptionalAction: React.FC<IActivityCardProps> = ({
   activity,
@@ -35,19 +38,29 @@ const FeedAction = ({ activity, from }: { activity: IActivity; from: string }) =
   )
 }
 
-const ItemAction: React.FC<IActivityCardProps> = ({
+const ItemAction = observer(function ItemAction({
   activity,
   activities,
   from,
   onEdit,
   setActivities,
-}) => {
+}: IActivityCardProps) {
+  const { general } = useStore()
+  const language = general.language
+  const locationRef = useRef(null)
   return (
     <div tw="flex w-full text-sm justify-between mt-1">
-      <button tw="relative flex items-center justify-center text-link-color">
-        <span tw="rounded-[10px] w-[128px] h-[40px]  bg-button-color opacity-5 flex items-center justify-center transition-all"></span>
-        <span tw="flex absolute w-max items-center">
-          <MapIcon tw=" fill-link-color" /> &nbsp; Get Location
+      <button tw="relative flex items-center justify-center w-max text-link-color">
+        <span
+          tw="rounded-[10px] w-full h-[40px] bg-button-color opacity-5 flex items-center justify-center transition-all"
+          css={[
+            css`
+              width: ${locationRef.current?.clientWidth + 24}px;
+            `,
+          ]}
+        ></span>
+        <span tw="flex absolute w-max items-center" ref={locationRef}>
+          <MapIcon tw=" fill-link-color" /> &nbsp; {lang.get_location[language]}
         </span>
       </button>
       {from === 'profile' ? (
@@ -63,6 +76,6 @@ const ItemAction: React.FC<IActivityCardProps> = ({
       )}
     </div>
   )
-}
+})
 
 export default ItemAction

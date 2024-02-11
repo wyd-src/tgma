@@ -4,28 +4,30 @@ import tw, { css } from 'twin.macro'
 import { useStore } from '~/stores'
 import { TPage } from '~/stores/GeneralStore'
 import { observer } from 'mobx-react-lite'
+import lang from '~/lang/lang.json'
 
 const Header = observer(function Header() {
   const { general } = useStore()
+  const language = general.language
   const items = [
     {
-      title: 'Home',
+      title: lang.home[language],
       key: 'home',
       Icon: <HomeIcon />,
     },
     {
-      title: 'Suggest',
+      title: lang.suggest[language],
       key: 'suggest',
       Icon: <AddIcon />,
     },
     {
-      title: 'Saved',
+      title: lang.saved[language],
       key: 'bookmarks',
       Icon: <BookmarkIcon tw="fill-button-text-color" />,
     },
 
     {
-      title: 'Profile',
+      title: lang.profile[language],
       key: 'profile',
       Icon: <ProfileIcon />,
     },

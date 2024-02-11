@@ -1,36 +1,30 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw, { css } from 'twin.macro'
-import { ArrowIcon, ChannelIcon, NewsIcon } from '~/assets/icons'
-
+import { ArrowIcon, ChannelIcon } from '~/assets/icons'
+import { useStore } from '~/stores'
+import lang from '~/lang/lang.json'
 export interface INews {
   title: string
   link: string
-  Icon: any
+  Icon: JSX.Element
 }
 
-const HomeNews: React.FC = () => {
+const HomeNews = observer(function HomeNews() {
+  const { general } = useStore()
+  const language = general.language
   const news: INews[] = [
     {
-      title: 'Enable refreshing by joining to <br> our channel',
+      title: lang.news_text[language],
       link: '',
       Icon: <ChannelIcon />,
-    },
-    {
-      title: 'Enable refreshing by joining to <br> our channel',
-      link: '',
-      Icon: <NewsIcon />,
-    },
-    {
-      title: 'Enable refreshing by joining to our channel',
-      link: '',
-      Icon: '',
     },
   ]
 
   return (
     <div tw="flex flex-col py-5 px-4 gap-2.5">
       <div tw="flex justify-between w-full text-sm">
-        <span tw="text-section-header-text-color font-semibold">News</span>
+        <span tw="text-section-header-text-color font-semibold">{lang.news[language]}</span>
       </div>
       {news.map((n, index) => (
         <div
@@ -40,7 +34,7 @@ const HomeNews: React.FC = () => {
           <div tw="flex flex-col w-full " css={[n.Icon ? tw`gap-3` : tw`gap-[3px]`]}>
             <span dangerouslySetInnerHTML={{ __html: n.title }}></span>
             <button tw="text-button-color flex gap-1.5 items-center">
-              Details <ArrowIcon tw="-rotate-90 stroke-button-color stroke-1" />
+              {lang.details[language]} <ArrowIcon tw="-rotate-90 stroke-button-color stroke-1" />
             </button>
           </div>
           {n.Icon && n.Icon}
@@ -48,6 +42,6 @@ const HomeNews: React.FC = () => {
       ))}
     </div>
   )
-}
+})
 
 export default HomeNews

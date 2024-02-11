@@ -1,0 +1,130 @@
+{
+  "home": {
+    "en": "Home",
+    "ru": "Главная"
+  },
+  "suggest": {
+    "en": "Suggest",
+    "ru": "Предложить"
+  },
+  "saved": {
+    "en": "Saved",
+    "ru": "Сохраненные"
+  },
+  "profile": {
+    "en": "Profile",
+    "ru": "Профиль"
+  },
+  "today_activity": {
+    "en": "Today's Activity Suggestion",
+    "ru": "Предложение на сегодня"
+  },
+  "details": {
+    "en": "Details",
+    "ru": "Подробнее"
+  },
+  "news": {
+    "en": "News",
+    "ru": "Новости"
+  },
+  "news_text": {
+    "en": "Enable refreshing by joining to <br> our channel",
+    "ru": "Включите обновление, присоединившись к <br> нашему каналу"
+  },
+  "get_location": {
+    "en": "Get Location",
+    "ru": "Получить местоположение"
+  },
+  "new_activity": {
+    "en": "New Activity Suggestion",
+    "ru": "Новое предложение"
+  },
+  "actitvity_title": {
+    "en": "Activity Title",
+    "ru": "Название активности"
+  },
+  "select_category": {
+    "en": "Select Category",
+    "ru": "Выберите категорию"
+  },
+  "description": {
+    "en": "Description",
+    "ru": "Описание"
+  },
+  "next": {
+    "en": "Next",
+    "ru": "Далее"
+  },
+  "suggested_by": {
+    "en": "Suggested by",
+    "ru": "Предложено"
+  },
+  "my_suggestion": {
+    "en": "My Suggestions",
+    "ru": "Мои предложения"
+  },
+  "location": {
+    "en": "Location",
+    "ru": "Местоположение"
+  },
+  "location_select_description": {
+    "en": "If the activity requires location, you can send it in the chat in the next step, otherwise you can skip and save the activity",
+    "ru": "Если активность требует местоположения, вы можете отправить его в чате на следующем шаге, в противном случае вы можете пропустить и сохранить активность"
+  },
+  "send_location": {
+    "en": "Send Location",
+    "ru": "Отправить местоположение"
+  },
+  "send_without_location": {
+    "en": "Send Activity Without Location",
+    "ru": "Отправить активность без местоположения"
+  },
+  "saved_popup_text": {
+    "en": "Are you sure you want to remove this from Saved?",
+    "ru": "Вы уверены, что хотите удалить это из сохраненных?"
+  },
+  "delete_activity_popup_text": {
+    "en": "Are you sure you want to delete this activity?",
+    "ru": "Вы уверены, что хотите удалить эту активность?"
+  },
+  "no_suggestion": {
+    "en": "There are no suggestions available",
+    "ru": "Нет доступных предложений"
+  },
+  "no_saved": {
+    "en": "There are no bookmarks saved",
+    "ru": "Нет сохраненных закладок"
+  },
+  "confirm": {
+    "en": "Confirm",
+    "ru": "Подтвердить"
+  },
+  "delete_activity_popup_title": {
+    "en": "Delete Activity",
+    "ru": "Удалить активность"
+  },
+  "delete": {
+    "en": "Delete",
+    "ru": "Удалить"
+  },
+  "cancel": {
+    "en": "Cancel",
+    "ru": "Отмена"
+  },
+  "update_activity_popup_title": {
+    "en": "Update Activity",
+    "ru": "Обновить активность"
+  },
+  "create_activity_popup_title": {
+    "en": "Create Activity",
+    "ru": "Создать активность"
+  },
+  "update_activity_popup_text": {
+    "en": "Do you want to update this activity?",
+    "ru": "Вы хотите обновить эту активность?"
+  },
+  "create_activity_popup_text": {
+    "en": "Do you want to create this activity?",
+    "ru": "Вы хотите создать эту активность?"
+  }
+}

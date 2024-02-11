@@ -5,6 +5,9 @@ import './Suggestion.css'
 import { ArrowFillIcon } from '~/assets/icons'
 import { CATEGORIES } from '~/utils/constants'
 import Arrow from '~/assets/icons/Arrow'
+import { observer } from 'mobx-react-lite'
+import { useStore } from '~/stores'
+import lang from '~/lang/lang.json'
 
 interface ISuggestion {
   title: string
@@ -12,8 +15,14 @@ interface ISuggestion {
   description: string
 }
 
-const SuggestionCategory = ({ category, suggestionItem, setSuggestionItem }) => {
+const SuggestionCategory = observer(function SuggestionCategory({
+  category,
+  suggestionItem,
+  setSuggestionItem,
+}) {
   const [open, setOpen] = useState<boolean>(false)
+  const { general } = useStore()
+  const language = general.language
   return (
     <div tw="relative bg-bg-color z-10">
       <div
@@ -22,7 +31,7 @@ const SuggestionCategory = ({ category, suggestionItem, setSuggestionItem }) => 
         onClick={() => setOpen(!open)}
       >
         <span css={[category ? tw`text-text-color` : tw`text-subtitle-text-color opacity-[0.5]`]}>
-          {category ? category : 'Select Category'}
+          {category ? category : lang.select_category[language]}
         </span>
         <ArrowFillIcon tw="fill-text-color" />
       </div>
@@ -43,8 +52,9 @@ const SuggestionCategory = ({ category, suggestionItem, setSuggestionItem }) => 
       )}
     </div>
   )
-}
-export default function SuggestionDetailsForm({
+})
+
+const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
   suggestionItem,
   setSuggestionItem,
   setNextPage,
@@ -53,9 +63,11 @@ export default function SuggestionDetailsForm({
   setSuggestionItem: (suggestionItem: ISuggestion) => void
   setNextPage: (nextPage: string) => void
 }) {
+  const { general } = useStore()
+  const language = general.language
   return (
     <div tw="flex flex-col gap-3">
-      <span tw="text-section-header-text-color font-semibold">New Activity Suggestion</span>
+      <span tw="text-section-header-text-color font-semibold">{lang.new_activity[language]}</span>
       <div tw="inline-block relative w-full">
         <input
           tw="bg-bg-color border-secondary-bg-color border-[1.5px] w-full rounded-[6px] px-4 py-2.5 text-text-color transition-all duration-75 focus:(border-accent-text-color outline-none)"
@@ -64,7 +76,7 @@ export default function SuggestionDetailsForm({
           onChange={(e) => setSuggestionItem({ ...suggestionItem, title: e.target.value })}
         />
         <label tw="text-sm text-subtitle-text-color pointer-events-none absolute left-[16px] top-[12px] transition-all duration-200 ease-in [transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)] opacity-[0.5] bg-bg-color">
-          Activity Title
+          {lang.actitvity_title[language]}
         </label>
       </div>
       <SuggestionCategory
@@ -80,14 +92,14 @@ export default function SuggestionDetailsForm({
           onChange={(e) => setSuggestionItem({ ...suggestionItem, description: e.target.value })}
         />
         <label tw="text-sm text-subtitle-text-color pointer-events-none absolute left-[16px] top-[12px] transition-all duration-200 ease-in [transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)] opacity-[0.5] bg-bg-color">
-          Description
+          {lang.description[language]}
         </label>
         <span tw="absolute right-[14px] bottom-[14px] text-subtitle-text-color text-xs">
           {suggestionItem?.description?.slice(0, 160)?.length ?? 0} / 160
         </span>
       </div>
       <button
-        tw="text-link-color bg-link-color-5 w-[124px] h-[40px] text-sm flex items-center justify-center rounded-[10px] self-end font-medium"
+        tw="relative self-end font-medium flex items-center justify-center text-sm text-link-color"
         onClick={() =>
           suggestionItem?.title &&
           suggestionItem.description &&
@@ -95,8 +107,13 @@ export default function SuggestionDetailsForm({
           setNextPage('location')
         }
       >
-        Next&nbsp; <Arrow tw="stroke-link-color -rotate-90" />
+        <span tw="bg-link-color opacity-5 w-[124px] h-[40px] rounded-[10px] "></span>
+        <span tw="flex absolute w-max items-center">
+          {lang.next[language]}&nbsp; <Arrow tw="stroke-link-color -rotate-90" />
+        </span>
       </button>
     </div>
   )
-}
+})
+
+export default SuggestionDetailsForm

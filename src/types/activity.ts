@@ -1,3 +1,5 @@
+import { TLanguage } from '~/stores/GeneralStore'
+
 export interface IActivityResult {
   items: IActivity[]
   total: number
@@ -8,6 +10,7 @@ export interface IUser {
   id: number
   first_name: string
   last_name: string
+  language_code: TLanguage
 }
 export interface IActivity {
   id: number

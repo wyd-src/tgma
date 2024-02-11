@@ -9,6 +9,7 @@ import WebApp from '@twa-dev/sdk'
 import { useStore } from './stores'
 import { observer } from 'mobx-react-lite'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { deserializeParams } from './utils/utils'
 
 const App = observer(function App() {
   const { user, general } = useStore()
@@ -19,6 +20,8 @@ const App = observer(function App() {
     bookmarks: <Bookmark />,
     profile: <Profile />,
   }
+
+  general.setLanguage(deserializeParams(WebApp.initData).user.language_code)
 
   return (
     <>

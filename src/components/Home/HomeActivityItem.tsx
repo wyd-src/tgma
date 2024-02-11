@@ -4,8 +4,11 @@ import tw, { css } from 'twin.macro'
 import { IActivityCardProps } from '~/types/activity'
 import ItemAction from './HomeActivityItemAction'
 import { CSSTransition } from 'react-transition-group'
+import { observer } from 'mobx-react-lite'
+import { useStore } from '~/stores'
+import lang from '~/lang/lang.json'
 
-const HomeActivityItem: React.FC<IActivityCardProps> = ({
+const HomeActivityItem = observer(function HomeActivityItem({
   activity,
   activities,
   isExpanded,
@@ -13,8 +16,10 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
   onEdit,
   setActivities,
   setIsExpanded,
-}) => {
+}: IActivityCardProps) {
+  const { general } = useStore()
   const [showDetails, setShowDetails] = useState<boolean>(isExpanded === activity.id)
+  const language = general.language
   const nodeRef = useRef(null)
   const activityIcon = {
     Restaurant: <RestaurantIcon tw="text-button-text-color" />,
@@ -61,7 +66,7 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
           </div>
         </div>
         <button tw="flex items-center h-max justify-center gap-2 text-link-color">
-          Details
+          {lang.details[language]}
           <span>
             <ArrowIcon
               tw="stroke-link-color stroke-[1.5]"
@@ -102,7 +107,9 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
         unmountOnExit={true}
       >
         <div ref={nodeRef}>
-          <span tw="text-subtitle-text-color text-xs">Suggested by {suggestedName}</span>
+          <span tw="text-subtitle-text-color text-xs">
+            {lang.suggested_by[language]} {suggestedName}
+          </span>
           <ItemAction
             activity={activity}
             activities={activities}
@@ -114,6 +121,6 @@ const HomeActivityItem: React.FC<IActivityCardProps> = ({
       </CSSTransition>
     </div>
   )
-}
+})
 
 export default HomeActivityItem

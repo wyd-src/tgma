@@ -9,11 +9,13 @@ import { INITIAL_ACTIVITY_RESULT } from '~/utils/constants'
 import NoResult from '../Base/NoResult'
 import { IActivityResult } from '~/types/activity'
 import ActivitySkeleton from '../Base/Skeleton/ActivitySkeleton'
+import lang from '~/lang/lang.json'
 
 const Bookmark = observer(function Bookmark() {
   const [bookmarks, setBookmarks] = useState<IActivityResult>(INITIAL_ACTIVITY_RESULT)
   const [loading, setLoading] = useState<boolean>(true)
-  const { user } = useStore()
+  const { user, general } = useStore()
+  const language = general.language
 
   const fetchBookmarks = useCallback(async () => {
     setLoading(true)
@@ -47,7 +49,7 @@ const Bookmark = observer(function Bookmark() {
               )}
             </div>
           ))}
-          {!bookmarks.total && <NoResult text="There are no bookmarks saved" />}
+          {!bookmarks.total && <NoResult text={lang.no_saved[language]} />}
         </>
       )}
     </div>

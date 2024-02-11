@@ -6,9 +6,11 @@ import { observer } from 'mobx-react-lite'
 import { updateBookmark } from '~/services/api/profile'
 import { IActivity } from '~/types/activity'
 import WebApp from '@twa-dev/sdk'
+import lang from '~/lang/lang.json'
 
 const ActionBookmark = observer(function ActionBookmark({ activity }: { activity: IActivity }) {
   const { user, general } = useStore()
+  const language = general.language
   const [bookmark, setBookmark] = useState<boolean>(activity.is_bookmarked)
 
   const onButtonClick = async (buttonId: string) => {
@@ -30,17 +32,18 @@ const ActionBookmark = observer(function ActionBookmark({ activity }: { activity
   const handleBookmark = useCallback(() => {
     WebApp.showPopup(
       {
-        title: 'Bookmark',
-        message: 'Are you sure you want to remove this from Saved?',
+        title: 'Saved',
+        message: lang.saved_popup_text[language],
         buttons: [
           {
             id: 'delete',
             type: 'destructive',
-            text: 'Delete',
+            text: lang.delete[language],
           },
           {
             id: 'cancel',
-            type: 'cancel',
+            type: 'default',
+            text: lang.cancel[language],
           },
         ],
       },

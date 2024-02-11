@@ -8,13 +8,16 @@ import { observer } from 'mobx-react-lite'
 import { IActivity } from '~/types/activity'
 import NoResult from '../Base/NoResult'
 import ActivitySkeleton from '../Base/Skeleton/ActivitySkeleton'
+import lang from '~/lang/lang.json'
 
 const HomeActivity = observer(function HomeActivity() {
-  const { user } = useStore()
+  const { user, general } = useStore()
   const [activities, setActivities] = useState<IActivity[]>([])
   const [isExpanded, setIsExpanded] = useState<number>(0)
   const [refreshLoading, setRefreshLoading] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
+
+  const language = general.language
 
   const fetchActivites = useCallback(async (onClick = false) => {
     setRefreshLoading(onClick)
@@ -41,7 +44,9 @@ const HomeActivity = observer(function HomeActivity() {
   return (
     <div tw="flex flex-col py-5 px-4">
       <div tw="flex justify-between w-full text-sm mb-3 items-center">
-        <span tw="text-section-header-text-color font-semibold">Today’s Activity Suggestion</span>
+        <span tw="text-section-header-text-color font-semibold">
+          {lang.today_activity[language]}
+        </span>
         <button tw="relative" onClick={() => fetchActivites(true)}>
           <span tw="rounded-[10px] w-[40px] h-[40px] bg-button-color opacity-5 flex items-center justify-center transition-all"></span>
           <RefreshIcon
@@ -66,7 +71,7 @@ const HomeActivity = observer(function HomeActivity() {
               )}
             </div>
           ))}
-          {!activities.length && <NoResult text="There are no suggestions available" />}
+          {!activities.length && <NoResult text={lang.no_suggestion[language]} />}
         </>
       )}
     </div>

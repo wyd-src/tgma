@@ -6,6 +6,7 @@ import { deleteActivity } from '~/services/api/profile'
 import { useStore } from '~/stores'
 import { observer } from 'mobx-react-lite'
 import WebApp from '@twa-dev/sdk'
+import lang from '~/lang/lang.json'
 
 const ActionDelete = observer(function ActionDelete({
   activity,
@@ -16,7 +17,8 @@ const ActionDelete = observer(function ActionDelete({
   activities: IActivityResult
   setActivities: (activity: IActivityResult) => void
 }) {
-  const { user } = useStore()
+  const { user, general } = useStore()
+  const language = general.language
 
   const onButtonClick = async (buttonId: string) => {
     if (buttonId === 'cancel') return
@@ -35,17 +37,18 @@ const ActionDelete = observer(function ActionDelete({
   const handleDelete = useCallback(() => {
     WebApp.showPopup(
       {
-        title: 'Delete Activity',
-        message: 'Are you sure you want to delete this activity?',
+        title: lang.delete_activity_popup_title[language],
+        message: lang.delete_activity_popup_text[language],
         buttons: [
           {
             id: 'delete',
             type: 'destructive',
-            text: 'Delete',
+            text: lang.delete[language],
           },
           {
             id: 'cancel',
-            type: 'cancel',
+            type: 'default',
+            text: lang.cancel[language],
           },
         ],
       },

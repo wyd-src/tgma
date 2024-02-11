@@ -11,12 +11,15 @@ import { INITIAL_ACTIVITY_RESULT } from '~/utils/constants'
 import ProfileDetails from './ProfileDetails'
 import NoResult from '../Base/NoResult'
 import ActivitySkeleton from '../Base/Skeleton/ActivitySkeleton'
+import lang from '~/lang/lang.json'
 
 const Profile = observer(function Profile() {
-  const { user } = useStore()
+  const { user, general } = useStore()
   const [activities, setActivities] = useState<IActivityResult>(INITIAL_ACTIVITY_RESULT)
   const [edit, setEdit] = useState<IActivity>({})
   const [loading, setLoading] = useState<boolean>(true)
+
+  const language = general.language
 
   const fetchMyActivites = useCallback(async () => {
     setLoading(true)
@@ -57,7 +60,7 @@ const Profile = observer(function Profile() {
           <ProfileDetails />
           <span tw="h-[1px] w-full bg-secondary-bg-color my-5"></span>
           <span tw="text-sm font-semibold text-section-header-text-color mb-2.5">
-            My Suggestions
+            {lang.my_suggestion[language]}
           </span>
           {loading ? (
             <ActivitySkeleton count={2} />
@@ -77,7 +80,7 @@ const Profile = observer(function Profile() {
                   )}
                 </div>
               ))}
-              {!activities.total && <NoResult text="There are no suggestions available" />}
+              {!activities.total && <NoResult text={lang.no_suggestion[language]} />}
             </>
           )}
         </>
