@@ -42,15 +42,13 @@ const HomeActivity = observer(function HomeActivity() {
     <div tw="flex flex-col py-5 px-4">
       <div tw="flex justify-between w-full text-sm mb-3 items-center">
         <span tw="text-section-header-text-color font-semibold">Today’s Activity Suggestion</span>
-        <span
-          onClick={() => fetchActivites(true)}
-          tw="flex items-center bg-link-color-5 rounded-[10px] w-[32px] h-[32px]"
-        >
+        <button tw="relative" onClick={() => fetchActivites(true)}>
+          <span tw="rounded-[10px] w-[40px] h-[40px] bg-button-color opacity-5 flex items-center justify-center transition-all"></span>
           <RefreshIcon
-            tw="relative left-1 stroke-button-color"
+            tw="absolute top-[8px] left-[8px] stroke-button-color"
             css={[refreshLoading && tw`animate-spin duration-1000 ease-in-out`]}
           />
-        </span>
+        </button>
       </div>
       {loading ? (
         <ActivitySkeleton count={3} />

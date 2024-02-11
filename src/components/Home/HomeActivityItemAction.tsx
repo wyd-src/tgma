@@ -16,12 +16,10 @@ const OptionalAction: React.FC<IActivityCardProps> = ({
   return (
     <div tw="flex gap-2">
       {from === 'profile' && (
-        <span
-          tw="bg-button-color-5 rounded-[10px] w-[40px] h-[40px] flex items-center justify-center"
-          onClick={() => onEdit(activity)}
-        >
-          <EditIcon tw="fill-button-color" />
-        </span>
+        <button tw="relative" onClick={() => onEdit(activity)}>
+          <span tw="rounded-[10px] w-[40px] h-[40px] bg-button-color opacity-5 flex items-center justify-center transition-all"></span>
+          <EditIcon tw="absolute top-[8px] left-[8px] fill-button-color" />
+        </button>
       )}
       <ActionDelete activity={activity} activities={activities} setActivities={setActivities} />
     </div>
@@ -46,8 +44,11 @@ const ItemAction: React.FC<IActivityCardProps> = ({
 }) => {
   return (
     <div tw="flex w-full text-sm justify-between mt-1">
-      <button tw="bg-link-color-5 rounded-[10px] p-2.5 pl-3 flex items-center justify-center text-link-color">
-        <MapIcon tw="fill-link-color" /> &nbsp; Get Location
+      <button tw="relative flex items-center justify-center text-link-color">
+        <span tw="rounded-[10px] w-[128px] h-[40px]  bg-button-color opacity-5 flex items-center justify-center transition-all"></span>
+        <span tw="flex absolute w-max items-center">
+          <MapIcon tw=" fill-link-color" /> &nbsp; Get Location
+        </span>
       </button>
       {from === 'profile' ? (
         <OptionalAction

@@ -50,11 +50,17 @@ const ActionBookmark = observer(function ActionBookmark({ activity }: { activity
 
   return (
     <button
-      tw="rounded-[10px] w-[40px] h-[40px] flex items-center justify-center transition-all"
-      css={[bookmark ? tw`bg-button-color` : tw`bg-link-color-5`]}
+      tw="relative"
       onClick={general.currentPage === 'home' ? bookmarkAction : handleBookmark}
     >
-      <BookmarkIcon css={[bookmark ? tw`fill-button-text-color` : tw`stroke-link-color`]} />
+      <span
+        tw="rounded-[10px] w-[40px] h-[40px] bg-button-color  flex items-center justify-center transition-all"
+        css={[!bookmark && tw`opacity-5`]}
+      ></span>
+      <BookmarkIcon
+        tw="absolute top-[8px] right-[8px]"
+        css={[bookmark ? tw`fill-button-text-color` : tw`stroke-link-color`]}
+      />
     </button>
   )
 })

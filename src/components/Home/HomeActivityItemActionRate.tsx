@@ -36,12 +36,15 @@ const ActionRate = observer(function ActionRate({
   return (
     <div tw="flex gap-2.5 items-center">
       {!showRating && (
-        <button
-          tw="rounded-[10px] w-[40px] h-[40px] flex items-center justify-center"
-          css={[rate > 1 ? tw`bg-button-color` : tw`bg-link-color-5`]}
-          onClick={() => setShowRating(true)}
-        >
-          <CheckIcon css={[rate > 1 ? tw`stroke-button-text-color` : tw`stroke-link-color`]} />
+        <button tw="relative" onClick={() => !rate && setShowRating(true)}>
+          <span
+            tw="rounded-[10px] w-[40px] h-[40px] bg-button-color flex items-center justify-center transition-all"
+            css={[!rate && tw`opacity-5`]}
+          ></span>
+          <CheckIcon
+            tw="absolute top-[8px] right-[8px] stroke-[1.5]"
+            css={[rate > 1 ? tw`stroke-button-text-color` : tw`stroke-link-color`]}
+          />
         </button>
       )}
 

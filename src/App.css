@@ -106,7 +106,7 @@ body {
 }
 .pageSliderLeft-enter.pageSliderLeft-enter-active {
   transform: translate3d(0, 0, 0);
-  transition: all 600ms;
+  transition: all 150ms;
   overflow: hidden;
 }
 .pageSliderLeft-exit {
