@@ -1,4 +1,4 @@
-import { action, makeAutoObservable } from 'mobx'
+import { action, makeAutoObservable, runInAction } from 'mobx'
 import RootStore from './RootStore'
 
 export type TPage = 'home' | 'suggest' | 'bookmarks' | 'profile'
@@ -12,6 +12,7 @@ export default class GeneralStore {
     this.root = rootStore
     makeAutoObservable(this, {
       setPage: action,
+      setLanguage: action,
     })
   }
 
