@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { EditIcon, MapIcon } from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
 import ActionBookmark from './HomeActivityItemActionBookmark'
@@ -46,20 +46,30 @@ const ItemAction = observer(function ItemAction({
   setActivities,
 }: IActivityCardProps) {
   const { general } = useStore()
+  const [width, setWidth] = useState(0)
   const language = general.language
   const locationRef = useRef(null)
+
+  useEffect(() => {
+    setWidth(locationRef.current?.clientWidth + 24)
+  }, [locationRef.current])
+
   return (
     <div tw="flex w-full text-sm justify-between mt-1">
       <button tw="relative flex items-center justify-center w-max text-link-color">
         <span
-          tw="rounded-[10px] w-full h-[40px] bg-button-color opacity-5 flex items-center justify-center transition-all"
+          tw="rounded-[10px] w-full h-[40px] bg-button-color opacity-5 flex items-center justify-center"
           css={[
             css`
-              width: ${locationRef.current?.clientWidth + 24}px;
+              width: ${width}px;
             `,
           ]}
         ></span>
-        <span tw="flex absolute w-max items-center" ref={locationRef}>
+        <span
+          tw="flex absolute w-max items-center"
+          css={[!width && tw`invisible`]}
+          ref={locationRef}
+        >
           <MapIcon tw=" fill-link-color" /> &nbsp; {lang.get_location[language]}
         </span>
       </button>
