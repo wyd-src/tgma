@@ -1,5 +1,5 @@
 import WebApp from '@twa-dev/sdk'
-import { SetStateAction, useCallback, useRef } from 'react'
+import { SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 import tw, { css } from 'twin.macro'
 import { MapIcon } from '~/assets/icons'
 import Arrow from '~/assets/icons/Arrow'
@@ -19,8 +19,19 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
   onEditFinish?: () => void
 }) {
   const { user, general } = useStore()
+  const [widthSendLocation, setWidthSendLocation] = useState(0)
+  const [widthSendWithoutLocation, setWidthSendWithoutLocation] = useState(0)
   const sendLocation = useRef(null)
   const sendWithoutLocation = useRef(null)
+
+  useEffect(() => {
+    setWidthSendLocation(sendLocation.current?.clientWidth + 24)
+  }, [sendLocation.current])
+
+  useEffect(() => {
+    setWidthSendWithoutLocation(sendWithoutLocation.current?.clientWidth + 24)
+  }, [sendWithoutLocation.current])
+
   const language = general.language
   const onButtonClick = async (buttonId: string) => {
     if (buttonId === 'cancel') return
@@ -76,11 +87,15 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
             tw="bg-link-color opacity-5 h-[40px] rounded-[10px]"
             css={[
               css`
-                width: ${sendLocation?.current?.clientWidth + 24}px;
+                width: ${widthSendLocation}px;
               `,
             ]}
           ></span>
-          <span ref={sendLocation} tw="flex absolute w-max items-center">
+          <span
+            ref={sendLocation}
+            tw="flex absolute w-max items-center"
+            css={[!widthSendLocation && tw`invisible`]}
+          >
             <MapIcon tw="mr-3 fill-link-color" />
             {lang.send_location[language]}&nbsp; <Arrow tw="stroke-link-color -rotate-90" />
           </span>
@@ -93,11 +108,15 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
             tw="bg-link-color opacity-5 h-[40px] rounded-[10px]"
             css={[
               css`
-                width: ${sendWithoutLocation?.current?.clientWidth + 24}px;
+                width: ${widthSendWithoutLocation}px;
               `,
             ]}
           ></span>
-          <span ref={sendWithoutLocation} tw="flex absolute w-max items-center">
+          <span
+            ref={sendWithoutLocation}
+            tw="flex absolute w-max items-center"
+            css={[!widthSendWithoutLocation && tw`invisible`]}
+          >
             {lang.send_without_location[language]}&nbsp; <Arrow tw="stroke-link-color -rotate-90" />
           </span>
         </button>
