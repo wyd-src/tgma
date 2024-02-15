@@ -7,12 +7,14 @@ export type TLanguage = 'en' | 'ru'
 export default class GeneralStore {
   page: TPage = 'home'
   language: TLanguage = 'en'
+  withLocation: boolean = false
   root: RootStore
   constructor(rootStore: RootStore) {
     this.root = rootStore
     makeAutoObservable(this, {
       setPage: action,
       setLanguage: action,
+      setWithLocation: action,
     })
   }
 
@@ -22,6 +24,10 @@ export default class GeneralStore {
 
   setLanguage(language: TLanguage) {
     this.language = language
+  }
+
+  setWithLocation(withLocation: boolean) {
+    this.withLocation = withLocation
   }
 
   get currentPage(): TPage {

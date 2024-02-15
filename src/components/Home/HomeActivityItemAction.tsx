@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 import { EditIcon, MapIcon } from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
 import ActionBookmark from './HomeActivityItemActionBookmark'
@@ -8,6 +8,8 @@ import ActionDelete from './HomeActivityItemActionDelete'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '~/stores'
 import lang from '~/lang/lang.json'
+import WebApp from '@twa-dev/sdk'
+import { updateDetails } from '~/services/api/profile'
 
 const OptionalAction: React.FC<IActivityCardProps> = ({
   activity,
@@ -45,7 +47,7 @@ const ItemAction = observer(function ItemAction({
   onEdit,
   setActivities,
 }: IActivityCardProps) {
-  const { general } = useStore()
+  const { user, general } = useStore()
   const [width, setWidth] = useState(0)
   const language = general.language
   const locationRef = useRef(null)
@@ -53,6 +55,40 @@ const ItemAction = observer(function ItemAction({
   useEffect(() => {
     setWidth(locationRef.current?.clientWidth + 24)
   }, [locationRef.current])
+
+  const onButtonClick = async (buttonId: string) => {
+    if (buttonId === 'cancel') return
+    await updateDetails({
+      tgData: user.queryId,
+      activityId: activity.id,
+    }).then((res: { data: SetStateAction<{ loc: [string] }> }) => {
+      if (res) {
+        WebApp.close()
+      }
+    })
+  }
+
+  const getLocation = useCallback(() => {
+    WebApp.showPopup(
+      {
+        title: lang.location[language],
+        message: lang.location_get_confirm_popup_text[language],
+        buttons: [
+          {
+            id: 'ok',
+            type: 'default',
+            text: lang.ok[language],
+          },
+          {
+            id: 'cancel',
+            type: 'default',
+            text: lang.cancel[language],
+          },
+        ],
+      },
+      onButtonClick
+    )
+  }, [])
 
   return (
     <div tw="flex w-full text-sm justify-between mt-1">
@@ -70,6 +106,7 @@ const ItemAction = observer(function ItemAction({
             tw="flex absolute w-max items-center"
             css={[!width && tw`invisible`]}
             ref={locationRef}
+            onClick={getLocation}
           >
             <MapIcon tw=" fill-link-color" /> &nbsp; {lang.get_location[language]}
           </span>

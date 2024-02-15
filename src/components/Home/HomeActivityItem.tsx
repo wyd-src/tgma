@@ -23,7 +23,7 @@ import { CATEGORIES } from '~/utils/constants'
 
 const IconConverter = (category: string) => {
   const Icon = {
-    'food and drink': {
+    'Food and Drink': {
       Icon: <RestaurantIcon tw="text-button-text-color" />,
       bgColor: tw`bg-restaurant`,
     },
@@ -90,7 +90,7 @@ const HomeActivityItem = observer(function HomeActivityItem({
                 &nbsp;{parseFloat(avgRate) ? avgRate : 'n/a'}
               </span>
             </div>
-            <span tw="text-subtitle-text-color">{activity.category}</span>
+            <span tw="text-subtitle-text-color">{lang?.[activity.category]?.[language]}</span>
           </div>
         </div>
         <button tw="flex items-center h-max justify-center gap-2 text-link-color">

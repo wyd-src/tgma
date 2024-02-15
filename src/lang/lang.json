@@ -87,6 +87,10 @@
     "en": "You will be redirected to bot page in order to send location",
     "ru": "Вы будете перенаправлены на страницу бота, чтобы отправить местоположение"
   },
+  "location_get_confirm_popup_text": {
+    "en": "You will be redirected to bot page in order to get location",
+    "ru": "Вы будете перенаправлены на страницу бота, чтобы получить местоположение"
+  },
   "saved_popup_text": {
     "en": "Are you sure you want to remove this from Saved?",
     "ru": "Вы уверены, что хотите удалить это из сохраненных?"
@@ -138,5 +142,41 @@
   "create_activity_popup_text": {
     "en": "Do you want to create this activity?",
     "ru": "Вы хотите создать эту активность?"
+  },
+  "Food and Drink": {
+    "en": "Food and Drink",
+    "ru": "Еда и напитки"
+  },
+  "nightlife": {
+    "en": "Nightlife",
+    "ru": "Ночная жизнь"
+  },
+  "outdoor": {
+    "en": "Outdoor",
+    "ru": "На открытом воздухе"
+  },
+  "shopping": {
+    "en": "Shopping",
+    "ru": "Шоппинг"
+  },
+  "art and culture": {
+    "en": "Art and Culture",
+    "ru": "Искусство и культура"
+  },
+  "sports": {
+    "en": "Sports",
+    "ru": "Спорт"
+  },
+  "games": {
+    "en": "Games",
+    "ru": "Игры"
+  },
+  "wellness and spa": {
+    "en": "Wellness and Spa",
+    "ru": "Здоровье и спа"
+  },
+  "other": {
+    "en": "Other",
+    "ru": "Другое"
   }
 }

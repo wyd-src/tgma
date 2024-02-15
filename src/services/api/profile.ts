@@ -189,10 +189,35 @@ const updateVote = async ({
   return { data, error, loading }
 }
 
+const updateDetails = async ({ tgData, activityId }: { tgData: string; activityId: number }) => {
+  let error = null
+  let loading = true
+  let data = null
+  let controller = new AbortController()
+  const url = '/activities/' + activityId + '/details/'
+  try {
+    const response = await baseAxios.request({
+      signal: controller.signal,
+      headers: {
+        'tg-data': tgData,
+      },
+      method: 'POST',
+      url,
+    })
+    data = response.status === 200 ? true : false
+  } catch (error: any) {
+    error = error
+  } finally {
+    loading = false
+  }
+  return { data, error, loading }
+}
+
 export {
   getProfile,
   getMyActivities,
   updateActivity,
+  updateDetails,
   deleteActivity,
   updateBookmark,
   getBookmarks,

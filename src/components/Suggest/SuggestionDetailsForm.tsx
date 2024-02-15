@@ -31,7 +31,7 @@ const SuggestionCategory = observer(function SuggestionCategory({
         onClick={() => setOpen(!open)}
       >
         <span css={[category ? tw`text-text-color` : tw`text-subtitle-text-color opacity-[0.5]`]}>
-          {category ? category : lang.select_category[language]}
+          {category ? lang[category][language] : lang.select_category[language]}
         </span>
         <ArrowFillIcon tw="fill-text-color" />
       </div>
@@ -47,7 +47,7 @@ const SuggestionCategory = observer(function SuggestionCategory({
                 setOpen(!open), setSuggestionItem({ ...suggestionItem, category: x })
               }}
             >
-              {x}
+              {x.slice(0, 1).toUpperCase() + x.slice(1)}
             </span>
           ))}
         </div>

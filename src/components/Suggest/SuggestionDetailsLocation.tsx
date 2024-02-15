@@ -21,7 +21,6 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
   const { user, general } = useStore()
   const [widthSendLocation, setWidthSendLocation] = useState(0)
   const [widthSendWithoutLocation, setWidthSendWithoutLocation] = useState(0)
-  const [withLocation, setWithLocation] = useState(false)
   const sendLocation = useRef(null)
   const sendWithoutLocation = useRef(null)
 
@@ -34,6 +33,7 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
   }, [sendWithoutLocation.current])
 
   const onLocationRedirectClick = () => {
+    general.setWithLocation(false)
     WebApp.close()
   }
 
@@ -43,32 +43,35 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
     const method = isEdit ? 'update' : 'create'
     await createUpdateActivity({
       tgData: user.queryId,
-      params: { ...suggestionItem, has_location: withLocation },
+      params: { ...suggestionItem, has_location: general.withLocation },
       method,
     }).then((res: { data: SetStateAction<IActivity> }) => {
       if (res) {
-        general.setPage('profile')
-        onEditFinish()
-        WebApp.showPopup(
-          {
-            title: lang.location[language],
-            message: lang.location_suggestion_confirm_popup_text[language],
-            buttons: [
-              {
-                id: 'ok',
-                type: 'default',
-                text: lang.ok[language],
-              },
-            ],
-          },
-          onLocationRedirectClick
-        )
+        if (general.withLocation) {
+          WebApp.showPopup(
+            {
+              title: lang.location[language],
+              message: lang.location_suggestion_confirm_popup_text[language],
+              buttons: [
+                {
+                  id: 'ok',
+                  type: 'default',
+                  text: lang.ok[language],
+                },
+              ],
+            },
+            onLocationRedirectClick
+          )
+        } else {
+          general.setPage('profile')
+          onEditFinish()
+        }
       }
     })
   }
 
   const handleActivity = useCallback((withLocation: boolean) => {
-    setWithLocation(withLocation)
+    general.setWithLocation(withLocation)
     const method = isEdit ? 'update' : 'create'
     const message =
       method === 'update'

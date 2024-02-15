@@ -1,5 +1,5 @@
 export const CATEGORIES = [
-  'food and drink',
+  'Food and Drink',
   'nightlife',
   'outdoor',
   'shopping',
