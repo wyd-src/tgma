@@ -22,6 +22,7 @@ export interface IActivity {
   number_of_bookmarks: number
   is_bookmarked: boolean
   rate: number
+  location: [number, number]
   user: IUser
 }
 

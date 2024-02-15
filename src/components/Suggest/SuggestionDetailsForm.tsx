@@ -35,12 +35,14 @@ const SuggestionCategory = observer(function SuggestionCategory({
         </span>
         <ArrowFillIcon tw="fill-text-color" />
       </div>
+
       {open && (
-        <div tw="absolute transition-all duration-200 flex flex-col px-4 py-2.5 bg-bg-color gap-5 border-secondary-bg-color rounded-b-[6px] border-t-0 border-[1.5px] w-full">
+        <div tw="absolute transition-all duration-200 max-h-[150px] overflow-auto flex flex-col px-4 py-2.5 bg-bg-color gap-5 border-secondary-bg-color rounded-b-[6px] border-t-0 border-[1.5px] w-full">
           {CATEGORIES.map((x) => (
             <span
               key={x}
               tw="text-sm text-text-color"
+              css={[suggestionItem.category === x && tw`text-accent-text-color font-semibold`]}
               onClick={() => {
                 setOpen(!open), setSuggestionItem({ ...suggestionItem, category: x })
               }}
@@ -67,7 +69,10 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
   const language = general.language
   return (
     <div tw="flex flex-col gap-3">
-      <span tw="text-section-header-text-color font-semibold">{lang.new_activity[language]}</span>
+      <div tw="flex flex-col gap-2.5">
+        <span tw="text-section-header-text-color font-semibold">{lang.new_activity[language]}</span>
+        <span tw="text-section-header-text-color text-sm">{lang.new_activity_hint[language]}</span>
+      </div>
       <div tw="inline-block relative w-full">
         <input
           tw="bg-bg-color border-secondary-bg-color border-[1.5px] w-full rounded-[6px] px-4 py-2.5 text-text-color transition-all duration-75 focus:(border-accent-text-color outline-none)"

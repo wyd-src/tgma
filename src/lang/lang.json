@@ -39,6 +39,10 @@
     "en": "New Activity Suggestion",
     "ru": "Новое предложение"
   },
+  "new_activity_hint": {
+    "en": "Got a favorite activity? Share it with us!",
+    "ru": "У вас есть любимая активность? Поделитесь с нами!"
+  },
   "actitvity_title": {
     "en": "Activity Title",
     "ru": "Название активности"
@@ -79,6 +83,10 @@
     "en": "Send Activity Without Location",
     "ru": "Отправить активность без местоположения"
   },
+  "location_suggestion_confirm_popup_text": {
+    "en": "You will be redirected to bot page in order to send location",
+    "ru": "Вы будете перенаправлены на страницу бота, чтобы отправить местоположение"
+  },
   "saved_popup_text": {
     "en": "Are you sure you want to remove this from Saved?",
     "ru": "Вы уверены, что хотите удалить это из сохраненных?"
@@ -98,6 +106,10 @@
   "confirm": {
     "en": "Confirm",
     "ru": "Подтвердить"
+  },
+  "ok": {
+    "en": "Ok",
+    "ru": "Ок"
   },
   "delete_activity_popup_title": {
     "en": "Delete Activity",

@@ -7,6 +7,7 @@ export interface IActivityParams {
   title: string
   category: string
   description: string
+  has_location?: boolean
 }
 
 const getFeed = async ({ tgData, onRefresh }: { tgData: string; onRefresh: boolean }) => {

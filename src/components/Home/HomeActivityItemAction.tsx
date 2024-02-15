@@ -65,13 +65,15 @@ const ItemAction = observer(function ItemAction({
             `,
           ]}
         ></span>
-        <span
-          tw="flex absolute w-max items-center"
-          css={[!width && tw`invisible`]}
-          ref={locationRef}
-        >
-          <MapIcon tw=" fill-link-color" /> &nbsp; {lang.get_location[language]}
-        </span>
+        {activity.location && (
+          <span
+            tw="flex absolute w-max items-center"
+            css={[!width && tw`invisible`]}
+            ref={locationRef}
+          >
+            <MapIcon tw=" fill-link-color" /> &nbsp; {lang.get_location[language]}
+          </span>
+        )}
       </button>
       {from === 'profile' ? (
         <OptionalAction

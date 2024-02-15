@@ -21,6 +21,7 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
   const { user, general } = useStore()
   const [widthSendLocation, setWidthSendLocation] = useState(0)
   const [widthSendWithoutLocation, setWidthSendWithoutLocation] = useState(0)
+  const [withLocation, setWithLocation] = useState(false)
   const sendLocation = useRef(null)
   const sendWithoutLocation = useRef(null)
 
@@ -32,21 +33,42 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
     setWidthSendWithoutLocation(sendWithoutLocation.current?.clientWidth + 24)
   }, [sendWithoutLocation.current])
 
+  const onLocationRedirectClick = () => {
+    WebApp.close()
+  }
+
   const language = general.language
   const onButtonClick = async (buttonId: string) => {
     if (buttonId === 'cancel') return
     const method = isEdit ? 'update' : 'create'
-    await createUpdateActivity({ tgData: user.queryId, params: suggestionItem, method }).then(
-      (res: { data: SetStateAction<IActivity> }) => {
-        if (res) {
-          general.setPage('profile')
-          onEditFinish()
-        }
+    await createUpdateActivity({
+      tgData: user.queryId,
+      params: { ...suggestionItem, has_location: withLocation },
+      method,
+    }).then((res: { data: SetStateAction<IActivity> }) => {
+      if (res) {
+        general.setPage('profile')
+        onEditFinish()
+        WebApp.showPopup(
+          {
+            title: lang.location[language],
+            message: lang.location_suggestion_confirm_popup_text[language],
+            buttons: [
+              {
+                id: 'ok',
+                type: 'default',
+                text: lang.ok[language],
+              },
+            ],
+          },
+          onLocationRedirectClick
+        )
       }
-    )
+    })
   }
 
-  const handleActivity = useCallback(() => {
+  const handleActivity = useCallback((withLocation: boolean) => {
+    setWithLocation(withLocation)
     const method = isEdit ? 'update' : 'create'
     const message =
       method === 'update'
@@ -62,7 +84,7 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
         message,
         buttons: [
           {
-            id: 'Confirm',
+            id: 'confirm',
             type: 'default',
             text: lang.confirm[language],
           },
@@ -82,7 +104,10 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
       <span tw="font-semibold">{lang.location[language]}</span>
       <span>{lang.location_select_description[language]}</span>
       <div tw="flex flex-col gap-4 mt-3">
-        <button tw="relative text-link-color text-sm flex justify-center items-center self-end font-medium">
+        <button
+          tw="relative text-link-color text-sm flex justify-center items-center self-end font-medium"
+          onClick={() => handleActivity(true)}
+        >
           <span
             tw="bg-link-color opacity-5 h-[40px] rounded-[10px]"
             css={[
@@ -102,7 +127,7 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
         </button>
         <button
           tw="relative text-link-color text-sm flex justify-center items-center self-end font-medium"
-          onClick={handleActivity}
+          onClick={() => handleActivity(false)}
         >
           <span
             tw="bg-link-color opacity-5 h-[40px] rounded-[10px]"

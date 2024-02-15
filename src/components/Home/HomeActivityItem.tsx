@@ -1,5 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ArrowIcon, CinemaIcon, RestaurantIcon, ShopIcon, StarIcon } from '~/assets/icons/'
+import {
+  ArrowIcon,
+  ArtIcon,
+  GameIcon,
+  NightlifeIcon,
+  OthersIcon,
+  OutdoorIcon,
+  RestaurantIcon,
+  ShopIcon,
+  SportsIcon,
+  StarIcon,
+  WellnessIcon,
+} from '~/assets/icons/'
 import tw, { css } from 'twin.macro'
 import { IActivityCardProps } from '~/types/activity'
 import ItemAction from './HomeActivityItemAction'
@@ -7,6 +19,28 @@ import { CSSTransition } from 'react-transition-group'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '~/stores'
 import lang from '~/lang/lang.json'
+import { CATEGORIES } from '~/utils/constants'
+
+const IconConverter = (category: string) => {
+  const Icon = {
+    'food and drink': {
+      Icon: <RestaurantIcon tw="text-button-text-color" />,
+      bgColor: tw`bg-restaurant`,
+    },
+    shopping: { Icon: <ShopIcon tw="text-button-text-color" />, bgColor: tw`bg-shopping` },
+    nightlife: { Icon: <NightlifeIcon tw="text-button-text-color" />, bgColor: tw`bg-nightlife` },
+    outdoor: { Icon: <OutdoorIcon tw="text-button-text-color" />, bgColor: tw`bg-outdoor` },
+    'art and culture': { Icon: <ArtIcon tw="text-button-text-color" />, bgColor: tw`bg-art` },
+    sports: { Icon: <SportsIcon tw="text-button-text-color" />, bgColor: tw`bg-sport` },
+    games: { Icon: <GameIcon tw="text-button-text-color" />, bgColor: tw`bg-game` },
+    'wellness and spa': {
+      Icon: <WellnessIcon tw="text-button-text-color" />,
+      bgColor: tw`bg-wellness`,
+    },
+    other: { Icon: <OthersIcon tw="text-button-text-color" />, bgColor: tw`bg-other` },
+  }
+  return Icon[category]
+}
 
 const HomeActivityItem = observer(function HomeActivityItem({
   activity,
@@ -21,16 +55,10 @@ const HomeActivityItem = observer(function HomeActivityItem({
   const [showDetails, setShowDetails] = useState<boolean>(isExpanded === activity.id)
   const language = general.language
   const nodeRef = useRef(null)
-  const activityIcon = {
-    Restaurant: <RestaurantIcon tw="text-button-text-color" />,
-    Shopping: <ShopIcon tw="text-button-text-color" />,
-    cinema: <CinemaIcon tw="text-button-text-color" />,
-  }
-  const iconBgColor = {
-    Restaurant: tw`bg-restaurant`,
-    Shopping: tw`bg-shopping`,
-    cinema: tw`bg-cinema`,
-  }
+  const activityIcon = {}
+  CATEGORIES.forEach((category) => {
+    activityIcon[category] = IconConverter(category)
+  })
   useEffect(() => {
     setShowDetails(isExpanded === activity.id)
   }, [isExpanded])
@@ -42,15 +70,15 @@ const HomeActivityItem = observer(function HomeActivityItem({
       <div
         tw="flex w-full justify-between"
         onClick={() => {
-          setShowDetails(!showDetails), setIsExpanded(activity.id)
+          setShowDetails(!showDetails), setIsExpanded && setIsExpanded(activity.id)
         }}
       >
         <div tw="flex gap-3">
           <span
             tw="rounded-full w-[44px] h-[44px] flex items-center justify-center"
-            css={[iconBgColor[activity.category]]}
+            css={[activityIcon[activity.category]?.bgColor]}
           >
-            {activityIcon[activity.category]}
+            {activityIcon[activity.category]?.Icon}
           </span>
           <div tw="flex flex-col">
             <div tw="flex  gap-2">

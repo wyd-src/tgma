@@ -1,4 +1,14 @@
-export const CATEGORIES = ['Restaurant', 'Shopping', 'Food']
+export const CATEGORIES = [
+  'food and drink',
+  'nightlife',
+  'outdoor',
+  'shopping',
+  'art and culture',
+  'sports',
+  'games',
+  'wellness and spa',
+  'other',
+]
 
 export const INITIAL_ACTIVITY_RESULT = {
   items: [],
