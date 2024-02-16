@@ -9,6 +9,7 @@ import { IActivity } from '~/types/activity'
 import NoResult from '../Base/NoResult'
 import ActivitySkeleton from '../Base/Skeleton/ActivitySkeleton'
 import lang from '~/lang/lang.json'
+import HomeActivityLocationAccess from './HomeActivityLocationAccess'
 
 const HomeActivity = observer(function HomeActivity() {
   const { user, general } = useStore()
@@ -16,6 +17,7 @@ const HomeActivity = observer(function HomeActivity() {
   const [isExpanded, setIsExpanded] = useState<number>(0)
   const [refreshLoading, setRefreshLoading] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
+  const [needToSetLocation, setNeedToSetLocation] = useState<boolean>(false)
 
   const language = general.language
 
@@ -27,6 +29,7 @@ const HomeActivity = observer(function HomeActivity() {
         if (res) {
           setActivities(res.data)
           setIsExpanded(res.data[0]?.id || 0)
+          setNeedToSetLocation(false)
           setRefreshLoading(false)
           setLoading(false)
         }
@@ -34,6 +37,7 @@ const HomeActivity = observer(function HomeActivity() {
       .catch((error: any) => {
         setLoading(false)
         setRefreshLoading(false)
+        setNeedToSetLocation(true)
       })
   }, [])
 
@@ -55,9 +59,9 @@ const HomeActivity = observer(function HomeActivity() {
           />
         </button>
       </div>
-      {loading ? (
-        <ActivitySkeleton count={3} />
-      ) : (
+      {loading && <ActivitySkeleton count={3} />}
+      {!loading && needToSetLocation && <HomeActivityLocationAccess />}
+      {!loading && !needToSetLocation && (
         <>
           {activities?.map((item, index) => (
             <div key={item.id} tw="flex flex-col">
@@ -66,12 +70,12 @@ const HomeActivity = observer(function HomeActivity() {
                 isExpanded={isExpanded}
                 setIsExpanded={setIsExpanded}
               />
-              {index !== activities.length - 1 && (
+              {index !== activities?.length - 1 && (
                 <span tw="bg-secondary-bg-color h-[1px] my-5 w-full"></span>
               )}
             </div>
           ))}
-          {!activities.length && <NoResult text={lang.no_suggestion[language]} />}
+          {!activities?.length && <NoResult text={lang.no_suggestion[language]} />}
         </>
       )}
     </div>

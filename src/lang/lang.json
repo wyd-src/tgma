@@ -79,6 +79,14 @@
     "en": "Send Location",
     "ru": "Отправить местоположение"
   },
+  "share_location": {
+    "en": "Share Your Location",
+    "ru": "Поделитесь своим местоположением"
+  },
+  "share_location_text": {
+    "en": "Send your location in chat for custom <br> activity suggestions",
+    "ru": "Отправьте свое местоположение в чат для <br> индивидуальных предложений активностей"
+  },
   "send_without_location": {
     "en": "Send Activity Without Location",
     "ru": "Отправить активность без местоположения"
