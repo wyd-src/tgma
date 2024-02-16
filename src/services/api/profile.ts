@@ -213,6 +213,30 @@ const updateDetails = async ({ tgData, activityId }: { tgData: string; activityI
   return { data, error, loading }
 }
 
+const setLocation = async ({ tgData }: { tgData: string }) => {
+  let error = null
+  let loading = true
+  let data = null
+  let controller = new AbortController()
+  const url = '/profile/location/'
+  try {
+    const response = await baseAxios.request({
+      signal: controller.signal,
+      headers: {
+        'tg-data': tgData,
+      },
+      method: 'POST',
+      url,
+    })
+    data = response.data
+  } catch (error: any) {
+    error = error
+  } finally {
+    loading = false
+  }
+  return { data, error, loading }
+}
+
 export {
   getProfile,
   getMyActivities,
@@ -222,4 +246,5 @@ export {
   updateBookmark,
   getBookmarks,
   updateVote,
+  setLocation,
 }

@@ -2,11 +2,13 @@ import tw from 'twin.macro'
 import lang from '~/lang/lang.json'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '~/stores'
-import { useCallback } from 'react'
+import { SetStateAction, useCallback } from 'react'
 import WebApp from '@twa-dev/sdk'
+import { setLocation } from '~/services/api/profile'
+import { IProfile } from '~/types/profile'
 
 const HomeActivityLocationAccess = observer(function HomeActivityLocationAccess() {
-  const { general } = useStore()
+  const { user, general } = useStore()
   const language = general.language
 
   const onButtonClick = (buttonId: string) => {
@@ -14,21 +16,16 @@ const HomeActivityLocationAccess = observer(function HomeActivityLocationAccess(
     WebApp.close()
   }
 
-  const handleLocation = useCallback(() => {
+  const locationPopup = useCallback(() => {
     WebApp.showPopup(
       {
         title: 'Share Location',
-        message: lang.location_get_confirm_popup_text[language],
+        message: lang.location_suggestion_confirm_popup_text[language],
         buttons: [
           {
             id: 'ok',
             type: 'default',
             text: lang.ok[language],
-          },
-          {
-            id: 'cancel',
-            type: 'default',
-            text: lang.cancel[language],
           },
         ],
       },
@@ -36,10 +33,18 @@ const HomeActivityLocationAccess = observer(function HomeActivityLocationAccess(
     )
   }, [])
 
+  const handleLocation = useCallback(async () => {
+    await setLocation({ tgData: user.queryId }).then((res: { data: SetStateAction<IProfile> }) => {
+      if (res) {
+        locationPopup()
+      }
+    })
+  }, [])
+
   return (
     <div tw="flex flex-col relative h-[300px] items-center justify-center gap-2.5">
       <span tw="absolute bg-button-color opacity-5 rounded-[10px] w-full h-full z-0"></span>
-      <img src="/src/assets/location-access.png" width="135px" />
+      <img src="/src/static/location-access.png" width="135px" />
       <div tw="flex flex-col items-center justify-center gap-1 text-text-color">
         <span tw="font-bold">{lang.share_location[language]}</span>
         <p
