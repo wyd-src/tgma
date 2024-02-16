@@ -99,7 +99,7 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
         <label tw="text-sm text-subtitle-text-color pointer-events-none absolute left-[16px] top-[12px] transition-all duration-200 ease-in [transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)] opacity-[0.5] bg-bg-color">
           {lang.description[language]}
         </label>
-        <span tw="absolute right-[14px] bottom-[14px] text-subtitle-text-color text-xs">
+        <span tw="absolute right-[14px] bottom-[14px] text-text-color text-xs">
           {suggestionItem?.description?.slice(0, 160)?.length ?? 0} / 160
         </span>
       </div>
