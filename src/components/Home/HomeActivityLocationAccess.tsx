@@ -44,7 +44,7 @@ const HomeActivityLocationAccess = observer(function HomeActivityLocationAccess(
   return (
     <div tw="flex flex-col relative h-[300px] items-center justify-center gap-2.5">
       <span tw="absolute bg-button-color opacity-5 rounded-[10px] w-full h-full z-0"></span>
-      <img src="/src/static/location-access.png" width="135px" />
+      <img src="/location-access.png" width="135px" />
       <div tw="flex flex-col items-center justify-center gap-1 text-text-color">
         <span tw="font-bold">{lang.share_location[language]}</span>
         <p
