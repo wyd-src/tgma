@@ -15,7 +15,7 @@ const ActionRate = observer(function ActionRate({
   vote: number
 }) {
   const { user } = useStore()
-  const [showRating, setShowRating] = useState<boolean>(false)
+  const [showRating, setShowRating] = useState<boolean>(!!vote)
   const [rate, setRate] = useState<number>(vote)
   const rates = [false, false, false, false, false]
   const nodeRef = useRef(null)
@@ -26,7 +26,6 @@ const ActionRate = observer(function ActionRate({
         (res: { data: SetStateAction<IActivity> }) => {
           if (res) {
             setRate(rate)
-            setShowRating(false)
           }
         }
       )
@@ -54,14 +53,13 @@ const ActionRate = observer(function ActionRate({
         timeout={500}
         classNames="horizental"
         umountOnEnter={true}
-        unmountOnExit={true}
       >
         <div ref={nodeRef} tw="flex items-center" css={[!showRating && tw`hidden`]}>
           {rates.map((x: boolean, index: number) => (
             <span
               key={index}
               onClick={() => {
-                handleRate(index + 1)
+                !rate && handleRate(index + 1)
               }}
             >
               <StarIcon

@@ -11,32 +11,10 @@ const HomeActivityLocationAccess = observer(function HomeActivityLocationAccess(
   const { user, general } = useStore()
   const language = general.language
 
-  const onButtonClick = (buttonId: string) => {
-    if (buttonId === 'cancel') return
-    WebApp.close()
-  }
-
-  const locationPopup = useCallback(() => {
-    WebApp.showPopup(
-      {
-        title: 'Share Location',
-        message: lang.location_suggestion_confirm_popup_text[language],
-        buttons: [
-          {
-            id: 'ok',
-            type: 'default',
-            text: lang.ok[language],
-          },
-        ],
-      },
-      onButtonClick
-    )
-  }, [])
-
   const handleLocation = useCallback(async () => {
     await setLocation({ tgData: user.queryId }).then((res: { data: SetStateAction<IProfile> }) => {
       if (res) {
-        locationPopup()
+        WebApp.close()
       }
     })
   }, [])

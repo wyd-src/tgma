@@ -52,9 +52,9 @@ const HomeActivity = observer(function HomeActivity() {
           {lang.today_activity[language]}
         </span>
         <button tw="relative" onClick={() => fetchActivites(true)}>
-          <span tw="rounded-[10px] w-[40px] h-[40px] bg-button-color opacity-5 flex items-center justify-center transition-all"></span>
+          <span tw="rounded-[10px] w-[32px] h-[32px] bg-button-color opacity-5 flex items-center justify-center transition-all"></span>
           <RefreshIcon
-            tw="absolute top-[8px] left-[8px] stroke-button-color"
+            tw="absolute top-[4px] left-[4px] stroke-button-color"
             css={[refreshLoading && tw`animate-spin duration-1000 ease-in-out`]}
           />
         </button>
