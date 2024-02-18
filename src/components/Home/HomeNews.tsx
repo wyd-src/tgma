@@ -37,7 +37,7 @@ const HomeNews = observer(function HomeNews() {
               {lang.details[language]} <ArrowIcon tw="-rotate-90 stroke-button-color stroke-1" />
             </button>
           </div>
-          <img src="/telegram.png" width="40px" height="30px" />
+          <img src="/telegram.png" tw="w-[40px] h-[40px]" />
         </div>
       ))}
     </div>
