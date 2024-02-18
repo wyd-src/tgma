@@ -71,7 +71,7 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
     <div tw="flex flex-col gap-3">
       <div tw="flex flex-col gap-2.5">
         <span tw="text-section-header-text-color font-semibold">{lang.new_activity[language]}</span>
-        <span tw="text-section-header-text-color text-sm">{lang.new_activity_hint[language]}</span>
+        <span tw="text-text-color text-sm">{lang.new_activity_hint[language]}</span>
       </div>
       <div tw="inline-block relative w-full">
         <input
