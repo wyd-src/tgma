@@ -10,6 +10,8 @@ import { CSSTransition } from 'react-transition-group'
 const ActionRate = observer(function ActionRate({
   activityId,
   vote,
+  activities,
+  setActivities,
 }: {
   activityId: number
   vote: number
@@ -26,6 +28,9 @@ const ActionRate = observer(function ActionRate({
         (res: { data: SetStateAction<IActivity> }) => {
           if (res) {
             setRate(rate)
+            const activity = activities.find((x) => x.id === activityId)
+            activity.rate = rate
+            setActivities([...activities])
           }
         }
       )

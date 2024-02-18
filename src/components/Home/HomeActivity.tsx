@@ -68,6 +68,8 @@ const HomeActivity = observer(function HomeActivity() {
               <HomeActivityItem
                 activity={item}
                 isExpanded={isExpanded}
+                activities={activities}
+                setActivities={setActivities}
                 setIsExpanded={setIsExpanded}
               />
               {index !== activities?.length - 1 && (

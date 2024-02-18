@@ -31,11 +31,13 @@ const OptionalAction: React.FC<IActivityCardProps> = ({
   )
 }
 
-const FeedAction = ({ activity, from }: { activity: IActivity; from: string }) => {
+const FeedAction = ({ activity, from, activities, setActivities }: { activity: IActivity; from: string }) => {
   return (
     <div tw="flex gap-2.5">
       <ActionBookmark activity={activity} />
-      {from !== 'bookmark' && <ActionRate activityId={activity.id} vote={activity.rate} />}
+      {from !== 'bookmark' && (
+        <ActionRate activityId={activity.id} vote={activity.rate} activities={activities} setActivities={setActivities} />
+      )}
     </div>
   )
 }
@@ -121,7 +123,7 @@ const ItemAction = observer(function ItemAction({
           setActivities={setActivities}
         />
       ) : (
-        <FeedAction activity={activity} from={from} />
+        <FeedAction activity={activity} from={from} activities={activities}  setActivities={setActivities}/>
       )}
     </div>
   )
