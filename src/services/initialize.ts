@@ -20,7 +20,7 @@ baseAxios.interceptors.request.use(
   }
 )
 
-baseAxios.interceptors.response.use(
+baseAxios.interceptors.response.use( 
   (response: any) => {
     return response
   },
