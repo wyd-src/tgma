@@ -82,7 +82,7 @@ const HomeActivityItem = observer(function HomeActivityItem({
           </span>
           <div tw="flex flex-col">
             <div tw="flex gap-2">
-              <span tw="text-sm text-text-color text-justify font-semibold max-w-[165px] flex-wrap">
+              <span tw="text-sm text-text-color font-semibold max-w-[165px] flex-wrap">
                 {activity.title}
               </span>
               <span tw="flex text-subtitle-text-color h-max items-center text-xs">
