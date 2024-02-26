@@ -68,7 +68,7 @@ const HomeActivityItem = observer(function HomeActivityItem({
   return (
     <div tw="flex flex-col gap-2 text-sm">
       <div
-        tw="flex w-full justify-between"
+        tw="flex w-full justify-between gap-1.5"
         onClick={() => {
           setShowDetails(!showDetails), setIsExpanded && setIsExpanded(activity.id)
         }}
@@ -81,11 +81,11 @@ const HomeActivityItem = observer(function HomeActivityItem({
             {activityIcon[activity.category]?.Icon}
           </span>
           <div tw="flex flex-col">
-            <div tw="flex  gap-2">
-              <span tw="text-sm text-text-color font-semibold w-max text-ellipsis">
+            <div tw="flex gap-2">
+              <span tw="text-sm text-text-color text-justify font-semibold max-w-[165px] flex-wrap">
                 {activity.title}
               </span>
-              <span tw="flex text-subtitle-text-color h-max items-center relative bottom-[1px] text-xs">
+              <span tw="flex text-subtitle-text-color h-max items-center text-xs">
                 <StarIcon tw="fill-rate" />
                 &nbsp;{parseFloat(avgRate) ? avgRate : 'n/a'}
               </span>

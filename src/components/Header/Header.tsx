@@ -39,7 +39,7 @@ const Header = observer(function Header() {
 
   return (
     <div tw="flex flex-col">
-      <div tw="flex w-full justify-evenly items-center pt-5 px-2 font-semibold text-button-color">
+      <div tw="flex w-full justify-around items-center pt-5 font-semibold text-button-color">
         {items.map((x) => (
           <div
             key={x.key}

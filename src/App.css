@@ -34,7 +34,7 @@
 
 body {
   background-color: var(--bg-color);
-  font-family: Roboto;
+  font-family: Roboto, 'Helvetica';
   margin: 0;
 }
 
