@@ -96,11 +96,18 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
           tw="bg-bg-color border-secondary-bg-color border-[1.5px] w-full rounded-[6px] px-4 py-2.5 text-text-color transition-all duration-75 focus:(border-accent-text-color outline-none)"
           placeholder=" "
           value={suggestionItem?.link ? suggestionItem.link : null}
-          onChange={(e) => setSuggestionItem({ ...suggestionItem, link: e.target.value })}
+          onChange={(e) =>
+            setSuggestionItem({ ...suggestionItem, link: e.target.value.toLocaleLowerCase() })
+          }
         />
         <label tw="text-sm text-subtitle-text-color pointer-events-none absolute left-[16px] top-[12px] transition-all duration-200 ease-in [transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)] opacity-[0.5] bg-bg-color">
           {lang.activity_url[language]}
         </label>
+        {suggestionItem?.link &&
+          !(
+            suggestionItem?.link.toLocaleLowerCase().startsWith('https://') ||
+            suggestionItem?.link.toLocaleLowerCase().startsWith('www.')
+          ) && <span tw="text-red-500 text-xs mt-[2px]">&nbsp;Invalid URL</span>}
       </div>
       <div tw="inline-block relative w-full ">
         <textarea
