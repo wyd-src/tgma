@@ -147,18 +147,21 @@ const HomeActivityItem = observer(function HomeActivityItem({
               tw="flex items-center w-max mb-[8px] gap-[5px] rounded-[10px] px-[6px] py-[8px] border-[1px] border-link-color border-opacity-30"
               onClick={copyLink}
             >
-              <AttachIcon tw="stroke-link-color"/>
+              <AttachIcon tw="stroke-link-color" />
               <span tw="text-sm text-link-color overflow-hidden whitespace-nowrap text-ellipsis max-w-[135px]">
                 {activity.link}
               </span>
-              <CopyIcon tw="stroke-link-color"/>
+              <CopyIcon tw="stroke-link-color" />
             </span>
           )}
           <span tw="text-subtitle-text-color text-xs">
             {lang.suggested_by[language]}
             <span
               css={[activity.share_tg_profile && tw`text-link-color font-bold`]}
-              onClick={() => WebApp.openLink(`https://t.me/${activity.user.username}`)}
+              onClick={() =>
+                activity.share_tg_profile &&
+                WebApp.openLink(`https://t.me/${activity.user.username}`)
+              }
             >
               &nbsp;{suggestedName}
             </span>

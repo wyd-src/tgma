@@ -95,7 +95,7 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
         <input
           tw="bg-bg-color border-secondary-bg-color border-[1.5px] w-full rounded-[6px] px-4 py-2.5 text-text-color transition-all duration-75 focus:(border-accent-text-color outline-none)"
           placeholder=" "
-          value={suggestionItem?.link ? suggestionItem.link : 'https://'}
+          value={suggestionItem?.link ? suggestionItem.link : null}
           onChange={(e) => setSuggestionItem({ ...suggestionItem, link: e.target.value })}
         />
         <label tw="text-sm text-subtitle-text-color pointer-events-none absolute left-[16px] top-[12px] transition-all duration-200 ease-in [transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)] opacity-[0.5] bg-bg-color">
