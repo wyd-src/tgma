@@ -47,6 +47,14 @@
     "en": "Activity Title",
     "ru": "Название активности"
   },
+  "activity_url": {
+    "en": "URL",
+    "ru": "Ссылка"
+  },
+  "share_profile": {
+    "en": "Share my Telegram’s profile",
+    "ru": "Поделиться моим профилем в Telegram"
+  },
   "select_category": {
     "en": "Select Category",
     "ru": "Выберите категорию"

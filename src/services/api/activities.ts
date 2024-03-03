@@ -8,6 +8,8 @@ export interface IActivityParams {
   category: string
   description: string
   has_location?: boolean
+  link?: string
+  share_tg_profile: boolean
 }
 
 const getFeed = async ({ tgData, onRefresh }: { tgData: string; onRefresh: boolean }) => {

@@ -13,6 +13,8 @@ interface ISuggestion {
   title: string
   category: string
   description: string
+  link: string
+  share_tg_profile: boolean
 }
 
 const SuggestionCategory = observer(function SuggestionCategory({
@@ -89,6 +91,17 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
         suggestionItem={suggestionItem}
         setSuggestionItem={setSuggestionItem}
       />
+      <div tw="inline-block relative w-full">
+        <input
+          tw="bg-bg-color border-secondary-bg-color border-[1.5px] w-full rounded-[6px] px-4 py-2.5 text-text-color transition-all duration-75 focus:(border-accent-text-color outline-none)"
+          placeholder=" "
+          value={suggestionItem?.link ? suggestionItem.link : 'https://'}
+          onChange={(e) => setSuggestionItem({ ...suggestionItem, link: e.target.value })}
+        />
+        <label tw="text-sm text-subtitle-text-color pointer-events-none absolute left-[16px] top-[12px] transition-all duration-200 ease-in [transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)] opacity-[0.5] bg-bg-color">
+          {lang.activity_url[language]}
+        </label>
+      </div>
       <div tw="inline-block relative w-full ">
         <textarea
           tw="bg-bg-color border-secondary-bg-color min-h-[160px] border-[1.5px] w-full rounded-[6px] px-4 py-2.5 text-text-color transition-all duration-75 resize-none focus:(border-accent-text-color outline-none)"
@@ -103,8 +116,36 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
           {suggestionItem?.description?.slice(0, 160)?.length ?? 0} / 160
         </span>
       </div>
+      <div tw="w-full flex justify-between items-center">
+        <span tw="text-text-color">{lang.share_profile[language]}</span>
+        <div
+          tw="flex items-center w-[50px] h-[31px] px-[2px] p-[1px] rounded-full transition-all duration-100 ease-in-out"
+          css={suggestionItem.share_tg_profile ? tw`bg-button-color` : tw`bg-secondary-bg-color`}
+          onClick={() =>
+            setSuggestionItem({
+              ...suggestionItem,
+              share_tg_profile: !suggestionItem.share_tg_profile,
+            })
+          }
+        >
+          <span
+            tw="flex rounded-full h-[27px] w-[27px] bg-text-color [box-shadow: 0px 3px 1px 0px #0000000F,0px 3px 8px 0px #00000026, 0px 0px 0px 1px #0000000A;]"
+            css={
+              suggestionItem.share_tg_profile
+                ? css`
+                    transform: translateX(20px);
+                    transition: transform 0.1s ease-in-out;
+                  `
+                : css`
+                    transform: translateX(0px);
+                    transition: transform 0.1s ease-in-out;
+                  `
+            }
+          ></span>
+        </div>
+      </div>
       <button
-        tw="relative self-end font-medium flex items-center justify-center text-sm text-link-color"
+        tw="relative self-end font-medium flex items-center justify-center mt-[8px] text-sm text-link-color"
         onClick={() =>
           suggestionItem?.title &&
           suggestionItem.description &&

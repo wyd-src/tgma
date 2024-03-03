@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import {
   ArrowIcon,
   ArtIcon,
+  AttachIcon,
+  CopyIcon,
   GameIcon,
   NightlifeIcon,
   OthersIcon,
@@ -20,6 +22,7 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from '~/stores'
 import lang from '~/lang/lang.json'
 import { CATEGORIES } from '~/utils/constants'
+import WebApp from '@twa-dev/sdk'
 
 const IconConverter = (category: string) => {
   const Icon = {
@@ -62,6 +65,10 @@ const HomeActivityItem = observer(function HomeActivityItem({
   useEffect(() => {
     setShowDetails(isExpanded === activity.id)
   }, [isExpanded])
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(activity.link)
+  }
 
   const suggestedName = activity?.user?.first_name ?? activity?.user?.last_name
   const avgRate = (activity?.sum_of_votes / activity?.number_of_votes).toFixed(1)
@@ -134,9 +141,27 @@ const HomeActivityItem = observer(function HomeActivityItem({
         mountOnEnter={true}
         unmountOnExit={true}
       >
-        <div ref={nodeRef}>
+        <div ref={nodeRef} tw="flex flex-col gap-[5px]">
+          {activity.link && (
+            <span
+              tw="flex items-center w-max mb-[8px] gap-[5px] rounded-[10px] px-[6px] py-[8px] border-[1px] border-link-color border-opacity-30"
+              onClick={copyLink}
+            >
+              <AttachIcon />
+              <span tw="text-sm text-link-color overflow-hidden whitespace-nowrap text-ellipsis max-w-[135px]">
+                {activity.link}
+              </span>
+              <CopyIcon />
+            </span>
+          )}
           <span tw="text-subtitle-text-color text-xs">
-            {lang.suggested_by[language]} {suggestedName}
+            {lang.suggested_by[language]}
+            <span
+              css={[activity.share_tg_profile && tw`text-link-color font-bold`]}
+              onClick={() => WebApp.openLink(`https://t.me/${activity.user.username}`)}
+            >
+              &nbsp;{suggestedName}
+            </span>
           </span>
           <ItemAction
             activity={activity}

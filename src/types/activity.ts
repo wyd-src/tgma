@@ -11,6 +11,7 @@ export interface IUser {
   first_name: string
   last_name: string
   language_code: TLanguage
+  username: string
 }
 export interface IActivity {
   id: number
@@ -24,6 +25,8 @@ export interface IActivity {
   rate: number
   location: [number, number]
   user: IUser
+  link: string
+  share_tg_profile: boolean
 }
 
 export interface IActivityCardProps {

@@ -104,8 +104,8 @@ const SuggestionDetailsLocation = observer(function SuggestionDetailsLocation({
 
   return (
     <div tw="flex flex-col gap-3 text-section-header-text-color text-sm">
-      <span tw="font-semibold">{lang.location[language]}</span>
-      <span>{lang.location_select_description[language]}</span>
+      <span tw="text-text-color font-semibold">{lang.location[language]}</span>
+      <span tw="text-text-color">{lang.location_select_description[language]}</span>
       <div tw="flex flex-col gap-4 mt-3">
         <button
           tw="relative text-link-color text-sm flex justify-center items-center self-end font-medium"
