@@ -147,11 +147,11 @@ const HomeActivityItem = observer(function HomeActivityItem({
               tw="flex items-center w-max mb-[8px] gap-[5px] rounded-[10px] px-[6px] py-[8px] border-[1px] border-link-color border-opacity-30"
               onClick={copyLink}
             >
-              <AttachIcon />
+              <AttachIcon tw="stroke-link-color"/>
               <span tw="text-sm text-link-color overflow-hidden whitespace-nowrap text-ellipsis max-w-[135px]">
                 {activity.link}
               </span>
-              <CopyIcon />
+              <CopyIcon tw="stroke-link-color"/>
             </span>
           )}
           <span tw="text-subtitle-text-color text-xs">
