@@ -122,7 +122,7 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
         <span tw="text-text-color">{lang.share_profile[language]}</span>
         <div
           tw="flex items-center w-[50px] h-[31px] rounded-full transition-all duration-100 ease-in-out"
-          css={suggestionItem.share_tg_profile ? tw`bg-button-color` : tw`bg-button-text-color`}
+          css={suggestionItem.share_tg_profile ? tw`bg-button-color` : tw`bg-secondary-bg-color`}
           onClick={() =>
             setSuggestionItem({
               ...suggestionItem,
@@ -131,7 +131,7 @@ const SuggestionDetailsForm = observer(function SuggestionDetailsForm({
           }
         >
           <span
-            tw="flex rounded-full h-[27px] w-[27px] bg-text-color [box-shadow: 0px 3px 1px 0px #0000000F,0px 3px 8px 0px #00000026, 0px 0px 0px 1px #0000000A;]"
+            tw="flex rounded-full h-[27px] w-[27px] bg-button-text-color [box-shadow: 0px 3px 1px 0px #0000000F,0px 3px 8px 0px #00000026, 0px 0px 0px 1px #0000000A;]"
             css={
               suggestionItem.share_tg_profile
                 ? css`
